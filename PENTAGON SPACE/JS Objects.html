@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>JS OBJECTS</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var emp={name:"mcb", eid:101, place:"Bangalore"};
+		document.write(emp["name"]+"<br>"+ emp["eid"]+"<br>"+emp["place"]+"<br>");
+		var emp1=new Object();
+		emp1["name"]="mourya";
+		emp1["place"]="mysore";
+		emp1["eid"]=101;
+		emp1["phoneno"]=9611612259;
+		document.write(emp1["name"]+"<br>"+ emp1["place"]+"<br>"+ emp1["eid"]+"<br>"+ emp1["phoneno"]+"<br>");
+		var arr2=["mourya", {name:"chiraag", age:22, car:"Supra"}, {name:"balaji", age:23, car:"GTR"}, 961161+"<br>"];
+		document.write(arr2[3]+"<br>"+arr2[2].car);
+		var arr3=["mourya", {name:"chiraag", age:22, car:"Supra"}, {name:"balaji", age:23, car:"GTR"}, 961161+"<br>"];
+		console.log(arr3);
+	</script>
+</body>
+</html>
