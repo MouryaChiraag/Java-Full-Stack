@@ -1,0 +1,197 @@
+SQL> SELECT *
+  2  FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+DEPT                           TABLE                                            
+EMP                            TABLE                                            
+BONUS                          TABLE                                            
+SALGRADE                       TABLE                                            
+PENTAGON                       TABLE                                            
+CUSTOMER                       TABLE                                            
+PRODUCT                        TABLE                                            
+FACULTY                        TABLE                                            
+STUDENT                        TABLE                                            
+
+9 rows selected.
+
+SQL> SELECT *
+  2  FROM PRODUCT;
+
+no rows selected
+
+SQL> DESC PRODUCT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PID                                       NOT NULL NUMBER(2)
+ PNAME                                     NOT NULL VARCHAR2(20)
+ PRICE                                     NOT NULL NUMBER(6,2)
+
+SQL> INSERT INTO PRODUCT VALUES(1,'LIPSTICK',500);
+
+1 row created.
+
+SQL> SELECT *
+  2  FROM PRODUCT;
+
+       PID PNAME                     PRICE                                      
+---------- -------------------- ----------                                      
+         1 LIPSTICK                    500                                      
+
+SQL> THE ABOVE ONE IS 1ST SYNTAX
+SP2-0734: unknown command beginning "THE ABOVE ..." - rest of line ignored.
+SQL> IF YOU DONT KNOW WHICH COLS COMES FIRST AND COMES SECOND, USE 2ND SYNTAX.
+SP2-0734: unknown command beginning "IF YOU DON..." - rest of line ignored.
+SQL> INSERT INTO PRODUCT(PNAME,PID,PRICE)
+  2  VALUES('MASCARA',2,400);
+
+1 row created.
+
+SQL>  SELECT *
+  2   FROM PRODUCT;
+
+       PID PNAME                     PRICE                                      
+---------- -------------------- ----------                                      
+         1 LIPSTICK                    500                                      
+         2 MASCARA                     400                                      
+
+SQL> OBSERVE ABOVE THAT WE HAVEN'T FOLLOWED THE ORDEE.
+SP2-0734: unknown command beginning "OBSERVE AB..." - rest of line ignored.
+SQL> INSERT INTO PRODUCT VALUES(&PID,&PNAME,&PRICE);
+Enter value for pid: 3
+Enter value for pname: 'KAJAL'
+Enter value for price: 600
+old   1: INSERT INTO PRODUCT VALUES(&PID,&PNAME,&PRICE)
+new   1: INSERT INTO PRODUCT VALUES(3,'KAJAL',600)
+
+1 row created.
+
+SQL> SELECT *
+  2  FROM PRODUCT;
+
+       PID PNAME                     PRICE                                      
+---------- -------------------- ----------                                      
+         1 LIPSTICK                    500                                      
+         2 MASCARA                     400                                      
+         3 KAJAL                       600                                      
+
+SQL> if you did'nt get the output, try INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE);
+SP2-0734: unknown command beginning "if you did..." - rest of line ignored.
+SQL> INSERT INTO PRODUCT VALUES(&PID,&PNAME,&PRICE);
+Enter value for pid: 4
+Enter value for pname: 'JOHNY WALKER'
+Enter value for price: 4000
+old   1: INSERT INTO PRODUCT VALUES(&PID,&PNAME,&PRICE)
+new   1: INSERT INTO PRODUCT VALUES(4,'JOHNY WALKER',4000)
+
+1 row created.
+
+SQL>  SELECT *
+  2   FROM PRODUCT;
+
+       PID PNAME                     PRICE                                      
+---------- -------------------- ----------                                      
+         1 LIPSTICK                    500                                      
+         2 MASCARA                     400                                      
+         3 KAJAL                       600                                      
+         4 JOHNY WALKER               4000                                      
+
+SQL> INSERT INTO PRODUCT VALUES(&PID,&PNAME,&PRICE);
+Enter value for pid: 7
+Enter value for pname: 'OLD MONK'
+Enter value for price: 150
+old   1: INSERT INTO PRODUCT VALUES(&PID,&PNAME,&PRICE)
+new   1: INSERT INTO PRODUCT VALUES(7,'OLD MONK',150)
+
+1 row created.
+
+SQL>  SELECT *
+  2   FROM PRODUCT;
+
+       PID PNAME                     PRICE                                      
+---------- -------------------- ----------                                      
+         1 LIPSTICK                    500                                      
+         2 MASCARA                     400                                      
+         3 KAJAL                       600                                      
+         4 JOHNY WALKER               4000                                      
+         7 OLD MONK                    150                                      
+
+SQL> ALL THESE ARE UNDER INSERT COMMANDS
+SP2-0734: unknown command beginning "ALL THESE ..." - rest of line ignored.
+SQL> NOW COMES UPDATE
+SP2-0734: unknown command beginning "NOW COMES ..." - rest of line ignored.
+SQL> UPDATE PRODUCT SET PNAME='FOGG', PRICE=300
+  2  WHERE PID=3;
+
+1 row updated.
+
+SQL> SELECT *
+  2  FROM PRODUCT;
+
+       PID PNAME                     PRICE                                      
+---------- -------------------- ----------                                      
+         1 LIPSTICK                    500                                      
+         2 MASCARA                     400                                      
+         3 FOGG                        300                                      
+         4 JOHNY WALKER               4000                                      
+         7 OLD MONK                    150                                      
+
+SQL> ABOVE ONE IS UPDATE
+SP2-0734: unknown command beginning "ABOVE ONE ..." - rest of line ignored.
+SQL> NOW WE'LL SEE DELETE COMMAND.
+SP2-0734: unknown command beginning "NOW WE'LL ..." - rest of line ignored.
+SQL> DELETE
+  2  FROM PRODUCT
+  3  WHEREPID=3;
+WHEREPID=3
+        *
+ERROR at line 3:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> DELETE
+  2  FROM PRODUCT
+  3  WHERE PID=3;
+
+1 row deleted.
+
+SQL> 
+SQL> SELECT *
+  2  FROM PRODUCT;
+
+       PID PNAME                     PRICE                                      
+---------- -------------------- ----------                                      
+         1 LIPSTICK                    500                                      
+         2 MASCARA                     400                                      
+         4 JOHNY WALKER               4000                                      
+         7 OLD MONK                    150                                      
+
+SQL> NOW WE WILL BE CONTINUING WITH REMAINING DDL COMMANDS I.E., TRUNCATE AND DROP.
+SP2-0734: unknown command beginning "NOW WE WIL..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+DEPT                           TABLE                                            
+EMP                            TABLE                                            
+BONUS                          TABLE                                            
+SALGRADE                       TABLE                                            
+PENTAGON                       TABLE                                            
+CUSTOMER                       TABLE                                            
+PRODUCT                        TABLE                                            
+FACULTY                        TABLE                                            
+STUDENT                        TABLE                                            
+
+9 rows selected.
+
+SQL> DESC PENTAGON;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EID                                       NOT NULL NUMBER(4)
+ ENAME                                     NOT NULL VARCHAR2(20)
+ JOB                                       NOT NULL VARCHAR2(15)
+
+SQL> TRUNCATE AND DROP ARE SIMPLE SO NO EXECUTION IS DONE.
+  2  
+SQL> SPOOL OFF;

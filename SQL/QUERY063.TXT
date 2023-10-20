@@ -1,0 +1,309 @@
+SQL> SET PAGES 100
+SQL> SET LINES 100
+SQL> SELECT *
+  2  FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20               
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30               
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20               
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10               
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30               
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20               
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10               
+
+14 rows selected.
+
+SQL> DISPLAY LOC OF EMP WHO WERE RE[PORTING TO TURNER'S MANAGER.
+SP2-0734: unknown command beginning "DISPLAY LO..." - rest of line ignored.
+SQL> SELECT LOC
+  2  FROM DEPT
+  3  WHERE DEPTNO(SELECT DEPTNO
+  4  FROM EMP
+  5  WHERE MGR IN(
+  6  
+SQL> SELECT LOC
+  2  FROM DEPT
+  3  WHERE DEPTNO IN(SELECT
+  4  DEPTNO
+  5  FROM EMP
+  6  WHERE
+  7  
+SQL> SELECT LOC
+  2  FROM DEPT
+  3  WHERE DEPTNO IN(SELECT MGR
+  4  FROM EMP
+  5  WHERE MGR IN(SELECT MGR
+  6  
+SQL>  SELECT LOC
+  2   FROM DEPT
+  3   WHERE DEPTNO IN(SELECT DEPTNO
+  4  FROM EMP
+  5  WHERE MGR IN(SELECT MGR
+  6  FROM EMP
+  7  WHERE ENAME='TURNER');
+WHERE ENAME='TURNER')
+                    *
+ERROR at line 7:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SELECT LOC
+  2  FROM DEPT
+  3  WHERE DEPTNO IN(SELECT DEPTNO
+  4  ROM EMP
+  5  HERE MGR IN(SELECT MGR
+  6  ROM EMP
+  7  
+SQL>  SELECT LOC
+  2   FROM DEPT
+  3   WHERE DEPTNO IN(SELECT DEPTNO
+  4  FROM EMP
+  5  WHERE MGR IN(SELECT MGR
+  6  FROM EMP
+  7  WHERE ENAME='TURNER'));
+
+LOC                                                                                                 
+-------------                                                                                       
+CHICAGO                                                                                             
+
+SQL> WAQTD DETAILS OF EMP WHO WERE ACTING AS REPORTING ANSWER.
+SP2-0734: unknown command beginning "WAQTD DETA..." - rest of line ignored.
+SQL> WAQTD DETAILS OF EMP WHO WERE ACTING AS REPORTING MANAGER.
+SP2-0734: unknown command beginning "WAQTD DETA..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE EMPNO IN(SELECT MGR
+  4  FROM EMP
+  5  WHERE MGR IS NOT NULL);
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20               
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+
+6 rows selected.
+
+SQL> WAQTD DETAILS OF EMP WHO HAVE REPORTING MANAGER.
+SP2-0734: unknown command beginning "WAQTD DETA..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE EMPNO(SELECT MGR
+  4  
+SQL> WAQTD ENAME OF EMP WHO HAVE REPORTING MANAGER.
+SP2-0734: unknown command beginning "WAQTD ENAM..." - rest of line ignored.
+SQL> SELECT
+  2  
+SQL> WAQTD NAME OF AN EMP WHO WERE HAVING ATLEAST 3 REPORTINGS.
+SP2-0734: unknown command beginning "WAQTD NAME..." - rest of line ignored.
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE EMPNO IN(SELECT MGR
+  4  FROM EMP
+  5  GROUP BY MGR
+  6  HAVING COUNT(*)>=3);
+
+ENAME                                                                                               
+----------                                                                                          
+KING                                                                                                
+BLAKE                                                                                               
+
+SQL> IF YOU COME ACROSS REPORTINGS, GO FOR MGR NOT JOB.
+SP2-0734: unknown command beginning "IF YOU COM..." - rest of line ignored.
+SQL> WAQTD DETAILS OF EMP IF THEY ARE HAVING ATLEAST 1 REPORTING AND ATMOST 2 REPORTINGS.
+SP2-0734: unknown command beginning "WAQTD DETA..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE EMPNO IN(SELECT MGR
+  4  FROM EMP
+  5  GROUP BY MGR
+  6  HAVING COUNT(*)>=2);
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+
+SQL> THE ABOVE ONE IS WRONG....USE BETWEEN OPERATOR.
+SP2-0734: unknown command beginning "THE ABOVE ..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE EMPNO IN(SELECT MGR
+  4  FROM EMP
+  5  GROUP BY MGR
+  6  HAVING COUNT(*) BETWEEN 1 AND 2);
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20               
+
+SQL> THIS IS CORRECT.
+SP2-0734: unknown command beginning "THIS IS CO..." - rest of line ignored.
+SQL> WAQTD DETAILS OF EMP WHO ARE REPORTING TO KING.
+SP2-0734: unknown command beginning "WAQTD DETA..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE EMPNO(SELECT MGR
+  4  FROM EMP
+  5  WHERE ENAME='KING');
+WHERE EMPNO(SELECT MGR
+            *
+ERROR at line 3:
+ORA-00936: missing expression 
+
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE MGR IN(SELECT EMPNO
+  4   FROM EMP
+  5   WHERE ENAME='KING');
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+
+SQL> WAQTD DETAILS OF EMP WHO ARE DIRECTLY REPORTING TO PRESIDENT.
+SP2-0734: unknown command beginning "WAQTD DETA..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE MGR IN(SELECT EMPNO
+  4  FROM EMP
+  5  WHERE JOB='PRESIDENT');
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+
+SQL> WAQTD DETAILS OF EMP WHO ARE INDIRECTLY REPORTING TO MANAGER.
+SP2-0734: unknown command beginning "WAQTD DETA..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE MGR IN(SELECT EMPNO
+  4  FROM EMP
+  5  WHERE MGR IN(SELECT EMPNO
+  6  FROM EMP
+  7  WHERE JOB='PRESIDENT');
+WHERE JOB='PRESIDENT')
+                     *
+ERROR at line 7:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE MGR IN(SELECT EMPNO
+  4  FROM EMP
+  5  WHERE MGR IN(SELECT EMPNO
+  6  FROM EMP
+  7   WHERE JOB='PRESIDENT'));
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20               
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30               
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30               
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30               
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30               
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30               
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10               
+
+8 rows selected.
+
+SQL>  SELECT *
+  2   FROM EMP
+  3   WHERE MGR IN(SELECT EMPNO
+  4  FROM EMP
+  5   WHERE JOB='PRESIDENT');
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+
+SQL> 1ST ONE IS CORRECT AND 2ND ONE IS WRONG.
+SP2-0734: unknown command beginning "1ST ONE IS..." - rest of line ignored.
+SQL> SELECT ROWID,ROWNUM,EMP.*
+  2  FROM EMP;
+
+ROWID                  ROWNUM      EMPNO ENAME      JOB              MGR HIREDATE         SAL       
+------------------ ---------- ---------- ---------- --------- ---------- --------- ----------       
+      COMM     DEPTNO                                                                               
+---------- ----------                                                                               
+AAAMfPAAEAAAAAgAAA          1       7369 SMITH      CLERK           7902 17-DEC-80        800       
+                   20                                                                               
+                                                                                                    
+AAAMfPAAEAAAAAgAAB          2       7499 ALLEN      SALESMAN        7698 20-FEB-81       1600       
+       300         30                                                                               
+                                                                                                    
+AAAMfPAAEAAAAAgAAC          3       7521 WARD       SALESMAN        7698 22-FEB-81       1250       
+       500         30                                                                               
+                                                                                                    
+AAAMfPAAEAAAAAgAAD          4       7566 JONES      MANAGER         7839 02-APR-81       2975       
+                   20                                                                               
+                                                                                                    
+AAAMfPAAEAAAAAgAAE          5       7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       
+      1400         30                                                                               
+                                                                                                    
+AAAMfPAAEAAAAAgAAF          6       7698 BLAKE      MANAGER         7839 01-MAY-81       2850       
+                   30                                                                               
+                                                                                                    
+AAAMfPAAEAAAAAgAAG          7       7782 CLARK      MANAGER         7839 09-JUN-81       2450       
+                   10                                                                               
+                                                                                                    
+AAAMfPAAEAAAAAgAAH          8       7788 SCOTT      ANALYST         7566 19-APR-87       3000       
+                   20                                                                               
+                                                                                                    
+AAAMfPAAEAAAAAgAAI          9       7839 KING       PRESIDENT            17-NOV-81       5000       
+                   10                                                                               
+                                                                                                    
+AAAMfPAAEAAAAAgAAJ         10       7844 TURNER     SALESMAN        7698 08-SEP-81       1500       
+         0         30                                                                               
+                                                                                                    
+AAAMfPAAEAAAAAgAAK         11       7876 ADAMS      CLERK           7788 23-MAY-87       1100       
+                   20                                                                               
+                                                                                                    
+AAAMfPAAEAAAAAgAAL         12       7900 JAMES      CLERK           7698 03-DEC-81        950       
+                   30                                                                               
+                                                                                                    
+AAAMfPAAEAAAAAgAAM         13       7902 FORD       ANALYST         7566 03-DEC-81       3000       
+                   20                                                                               
+                                                                                                    
+AAAMfPAAEAAAAAgAAN         14       7934 MILLER     CLERK           7782 23-JAN-82       1300       
+                   10                                                                               
+                                                                                                    
+
+14 rows selected.
+
+SQL> SELECT ROWID,ROWNUM,DEPT.*
+  2  FROM DEPT;
+
+ROWID                  ROWNUM     DEPTNO DNAME          LOC                                         
+------------------ ---------- ---------- -------------- -------------                               
+AAAMfNAAEAAAAAQAAA          1         10 ACCOUNTING     NEW YORK                                    
+AAAMfNAAEAAAAAQAAB          2         20 RESEARCH       DALLAS                                      
+AAAMfNAAEAAAAAQAAC          3         30 SALES          CHICAGO                                     
+AAAMfNAAEAAAAAQAAD          4         40 OPERATIONS     BOSTON                                      
+
+SQL> SPOOL OFF;

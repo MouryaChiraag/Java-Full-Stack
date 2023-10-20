@@ -1,0 +1,460 @@
+SQL> SET PAGES 100
+SQL> SET LINES 100
+SQL> SELECT *
+  2  FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                                                   
+------------------------------ ------- ----------                                                   
+DEPT                           TABLE                                                                
+EMP                            TABLE                                                                
+BONUS                          TABLE                                                                
+SALGRADE                       TABLE                                                                
+PENTAGON                       TABLE                                                                
+CUSTOMER                       TABLE                                                                
+PRODUCT                        TABLE                                                                
+FACULTY                        TABLE                                                                
+
+8 rows selected.
+
+SQL> SELECT *
+  2  FROM PRODUCT;
+
+no rows selected
+
+SQL> INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE);
+Enter value for pid: 1
+Enter value for pname: 'LAPTOP'
+Enter value for price: 9999
+old   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE)
+new   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(1,'LAPTOP',9999)
+
+1 row created.
+
+SQL> INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE);
+Enter value for pid: 2
+Enter value for pname: 'WATCG'
+Enter value for price: 6000
+old   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE)
+new   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(2,'WATCG',6000)
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT *
+  2  FROM PRODUCT;
+
+       PID PNAME                     PRICE                                                          
+---------- -------------------- ----------                                                          
+         1 LAPTOP                     9999                                                          
+         2 WATCG                      6000                                                          
+
+SQL> INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE);
+Enter value for pid: 3
+Enter value for pname: 'BOOK'
+Enter value for price: 300
+old   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE)
+new   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(3,'BOOK',300)
+
+1 row created.
+
+SQL> UPDATE PRODUCT
+  2  SET PNAME='CHOCOLATE'
+  3  WHERE PID=3;
+
+1 row updated.
+
+SQL> DELETE FROM PRODUCT
+  2  WHERE PID=3;
+
+1 row deleted.
+
+SQL> SELECT *
+  2  FROM PRODUCT;
+
+       PID PNAME                     PRICE                                                          
+---------- -------------------- ----------                                                          
+         1 LAPTOP                     9999                                                          
+         2 WATCG                      6000                                                          
+
+SQL> SELE CT *
+SP2-0042: unknown command "SELE CT *" - rest of line ignored.
+SQL> FROM PRODUCT;
+SP2-0734: unknown command beginning "FROM PRODU..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM PRODUCT;
+
+       PID PNAME                     PRICE                                                          
+---------- -------------------- ----------                                                          
+         1 LAPTOP                     9999                                                          
+         2 WATCG                      6000                                                          
+
+SQL> IT WON'T BE DELETED UNTIL YOU COMMIT.
+SP2-0734: unknown command beginning "IT WON'T B..." - rest of line ignored.
+SQL> INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE);
+Enter value for pid: 4
+Enter value for pname: 'SUNGLASSES'
+Enter value for price: 4000
+old   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE)
+new   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(4,'SUNGLASSES',4000)
+
+1 row created.
+
+SQL> SELECT *
+  2  FROM PRODUCT;
+
+       PID PNAME                     PRICE                                                          
+---------- -------------------- ----------                                                          
+         1 LAPTOP                     9999                                                          
+         2 WATCG                      6000                                                          
+         4 SUNGLASSES                 4000                                                          
+
+SQL> ROLLBACK COMPLETE;
+ROLLBACK COMPLETE
+         *
+ERROR at line 1:
+ORA-02181: invalid option to ROLLBACK WORK 
+
+
+SQL> ROLLBACK;
+
+Rollback complete.
+
+SQL>  SELECT *
+  2   FROM PRODUCT;
+
+       PID PNAME                     PRICE                                                          
+---------- -------------------- ----------                                                          
+         1 LAPTOP                     9999                                                          
+         2 WATCG                      6000                                                          
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL>  ROLLBACK;
+
+Rollback complete.
+
+SQL> INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE);
+Enter value for pid: 6
+Enter value for pname: 'DAIRYMILK'
+Enter value for price: 100
+old   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE)
+new   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(6,'DAIRYMILK',100)
+
+1 row created.
+
+SQL> SAVEPOINT S1;
+
+Savepoint created.
+
+SQL> INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE);
+Enter value for pid: 8
+Enter value for pname: 'TEMPTATION'
+Enter value for price: 200
+old   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE)
+new   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(8,'TEMPTATION',200)
+
+1 row created.
+
+SQL> SAVEPOINT S2;
+
+Savepoint created.
+
+SQL> INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE);
+Enter value for pid: 10
+Enter value for pname: 'FR'
+Enter value for price: 150
+old   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE)
+new   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(10,'FR',150)
+
+1 row created.
+
+SQL> SAVEPOINT S3;
+
+Savepoint created.
+
+SQL> ROLLBACK TO S1;
+
+Rollback complete.
+
+SQL> SELECT *
+  2  FROM PRODUCT;
+
+       PID PNAME                     PRICE                                                          
+---------- -------------------- ----------                                                          
+         1 LAPTOP                     9999                                                          
+         2 WATCG                      6000                                                          
+         6 DAIRYMILK                   100                                                          
+
+SQL> SAVEPOINT DOESN'T SAVE THE RECORDS. ONLY COMMIT SAVES. IF YOU CLOSE THE APP NOW, YOU WILL GET TO KKNOW.
+  2  
+SQL> INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE);
+Enter value for pid: 
+Enter value for pname: 
+Enter value for price: 
+old   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE)
+new   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(,,)
+INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(,,)
+                                            *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE);
+Enter value for pid: 7
+Enter value for pname: 'FR'
+Enter value for price: 150
+old   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE)
+new   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(7,'FR',150)
+
+1 row created.
+
+SQL> SAVEPOINT S4;
+
+Savepoint created.
+
+SQL> ROLLBACK TO S4;
+
+Rollback complete.
+
+SQL> SELECT *
+  2  FROM PRODUCT;
+
+       PID PNAME                     PRICE                                                          
+---------- -------------------- ----------                                                          
+         1 LAPTOP                     9999                                                          
+         2 WATCG                      6000                                                          
+         6 DAIRYMILK                   100                                                          
+         7 FR                          150                                                          
+
+SQL> FR MIGHT NOT SAVE.
+SP2-0734: unknown command beginning "FR MIGHT N..." - rest of line ignored.
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT *
+  2  FROM PRODUCT;
+
+       PID PNAME                     PRICE                                                          
+---------- -------------------- ----------                                                          
+         1 LAPTOP                     9999                                                          
+         2 WATCG                      6000                                                          
+         6 DAIRYMILK                   100                                                          
+         7 FR                          150                                                          
+
+SQL> INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE);
+Enter value for pid: 6
+Enter value for pname: 'CRICKET BAT'
+Enter value for price: 1500
+old   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE)
+new   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(6,'CRICKET BAT',1500)
+INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(6,'CRICKET BAT',1500)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.PT_PK) violated 
+
+
+SQL> SAVEPOINT MOURYA;
+
+Savepoint created.
+
+SQL> INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE);
+Enter value for pid: 
+Enter value for pname: 
+Enter value for price: 
+old   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE)
+new   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(,,)
+INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(,,)
+                                            *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> ROLLBACK MOURYA;
+ROLLBACK MOURYA
+         *
+ERROR at line 1:
+ORA-02181: invalid option to ROLLBACK WORK 
+
+
+SQL> ROLLBACK TO MOURYA;
+
+Rollback complete.
+
+SQL> INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE);
+Enter value for pid: 8
+Enter value for pname: 'BAT'
+Enter value for price: 15050
+old   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE)
+new   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(8,'BAT',15050)
+INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(8,'BAT',15050)
+                                                    *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column 
+
+
+SQL> INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE);
+Enter value for pid: 8
+Enter value for pname: 'BAT'
+Enter value for price: 1550;
+old   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE)
+new   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(8,'BAT',1550;)
+INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(8,'BAT',1550;)
+                                                        *
+ERROR at line 1:
+ORA-00911: invalid character 
+
+
+SQL> INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE);
+Enter value for pid: 9
+Enter value for pname: 'BAT BALL'
+Enter value for price: 1600
+old   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE)
+new   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(9,'BAT BALL',1600)
+
+1 row created.
+
+SQL> INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE);
+Enter value for pid: 10
+Enter value for pname: 'PARKER PEN'
+Enter value for price: 300
+old   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE)
+new   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(10,'PARKER PEN',300)
+
+1 row created.
+
+SQL> SAVEPOINT S8;
+
+Savepoint created.
+
+SQL> INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE);
+Enter value for pid: 11
+Enter value for pname: 'SE GOLD'
+Enter value for price: 180
+old   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(&PID,&PNAME,&PRICE)
+new   1: INSERT INTO PRODUCT(PID,PNAME,PRICE) VALUES(11,'SE GOLD',180)
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT *
+  2  FROM PRODUCT;
+
+       PID PNAME                     PRICE                                                          
+---------- -------------------- ----------                                                          
+         1 LAPTOP                     9999                                                          
+         2 WATCG                      6000                                                          
+         6 DAIRYMILK                   100                                                          
+         7 FR                          150                                                          
+         9 BAT BALL                   1600                                                          
+        10 PARKER PEN                  300                                                          
+        11 SE GOLD                     180                                                          
+
+7 rows selected.
+
+SQL> DCL
+SP2-0042: unknown command "DCL" - rest of line ignored.
+SQL> STARTS HERE
+SP2-0734: unknown command beginning "STARTS HER..." - rest of line ignored.
+SQL> DCL [DATA CONTROL LANGUAGE]
+SP2-0734: unknown command beginning "DCL [DATA ..." - rest of line ignored.
+SQL> TWO TYPES THAT IS ,
+SP2-0734: unknown command beginning "TWO TYPES ..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> GRANT AND REVOKE.
+  2  
+SQL> GRANT SELECT ON EMP
+  2  TO HR;
+
+Grant succeeded.
+
+SQL> IF YOU WANT TO SEE THAT GRANT HAS BEEN SUCEEDED, YOU CAN EXIT THE APP. AND WHEN YOU LOGIN, YOU CAN TYPE HR AND TIGER INSTEAD OF SCOTT I GUESS.
+SP2-0734: unknown command beginning "IF YOU WAN..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM SCOTT.EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20               
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30               
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20               
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10               
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30               
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20               
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10               
+
+14 rows selected.
+
+SQL> SELECT *
+  2  FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                                                   
+------------------------------ ------- ----------                                                   
+DEPT                           TABLE                                                                
+EMP                            TABLE                                                                
+BONUS                          TABLE                                                                
+SALGRADE                       TABLE                                                                
+PENTAGON                       TABLE                                                                
+CUSTOMER                       TABLE                                                                
+PRODUCT                        TABLE                                                                
+FACULTY                        TABLE                                                                
+
+8 rows selected.
+
+SQL> SELECT *
+  2  FROM SCOTT.EMP
+  3  WHERE ENAME='SALESMAN';
+
+no rows selected
+
+SQL> SELECT 8
+  2  FROM SCOTT.EMP
+  3  WHERE JOB='SALESMAN';
+
+         8                                                                                          
+----------                                                                                          
+         8                                                                                          
+         8                                                                                          
+         8                                                                                          
+         8                                                                                          
+
+SQL> SELECT *
+  2  FROM SCOTT.EMP
+  3  WHERE JOB='SALESMAN';
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30               
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30               
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30               
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30               
+
+SQL> UPDATE SCOTT.EMP
+  2  SET SAL=1500
+  3  WHERE EMPNO=7499;
+
+1 row updated.
+
+SQL> THEY DONT IT WONT GET UPDATED BUT IN MY LAP IT GOT UPDATED.
+SP2-0734: unknown command beginning "THEY DONT ..." - rest of line ignored.
+SQL> EXIT;

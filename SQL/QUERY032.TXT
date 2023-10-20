@@ -1,0 +1,306 @@
+SQL> SET PAGES 100
+SQL> SET LINES 100
+SQL> SELECT *
+  2  FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20               
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30               
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20               
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10               
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30               
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20               
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10               
+
+14 rows selected.
+
+SQL> WAQTD THE MANAGER OF BLAKE.
+SP2-0734: unknown command beginning "WAQTD THE ..." - rest of line ignored.
+SQL> SELECT MGR
+  2  FROM EMP
+  3  WHERE EID
+  4  
+SQL> WAQTD MANAGER NAME OF BLAKE.
+SP2-0734: unknown command beginning "WAQTD MANA..." - rest of line ignored.
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE EMPNO IN(SELECT MGR
+  4  FROM EMP
+  5  WHERE ENAME='BLAKE');
+
+ENAME                                                                                               
+----------                                                                                          
+KING                                                                                                
+
+SQL> WAQTD SMITH'S MANAGER DETAILS.
+SP2-0734: unknown command beginning "WAQTD SMIT..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE EMPNO IN(SELECT MGR
+  4  FROM EMP
+  5  WHERE ENAME='SMITH');
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+
+SQL> WAQTD DEPT NAME OF TURNER'S MANAGER.
+SP2-0734: unknown command beginning "WAQTD DEPT..." - rest of line ignored.
+SQL> SELECT DEPT
+  2  FROM EMP
+  3  WHERE DEPTNO(SELECT MGR
+  4  FROM EMP
+  5  WHERE ENAME='TURNER');
+WHERE DEPTNO(SELECT MGR
+             *
+ERROR at line 3:
+ORA-00936: missing expression 
+
+
+SQL> SELECT DNAME
+  2  FROM DEPT
+  3  WHERE DEPTNO IN(SELECT DEPTNO
+  4  FROM EMP
+  5  WHERE ENAME='TURNER');
+
+DNAME                                                                                               
+--------------                                                                                      
+SALES                                                                                               
+
+SQL> SELECT DNAME
+  2  FROM DEPT
+  3  WHERE DEPTNO IN(SELECT DEPTNO
+  4  FROM EMP
+  5  WHERE EMPNO IN (SELECT MGR
+  6  FROM EMP
+  7  WHERE ENAME='TURNER');
+WHERE ENAME='TURNER')
+                    *
+ERROR at line 7:
+ORA-00907: missing right parenthesis 
+
+
+SQL>  SELECT DNAME
+  2   FROM DEPT
+  3   WHERE DEPTNO IN(SELECT DEPTNO
+  4   FROM EMP
+  5   WHERE EMPNO IN (SELECT MGR
+  6   FROM EMP
+  7   WHERE ENAME='TURNER'));
+
+DNAME                                                                                               
+--------------                                                                                      
+SALES                                                                                               
+
+SQL> WAQTD LOCATION OF CLERK MANAGER.
+SP2-0734: unknown command beginning "WAQTD LOCA..." - rest of line ignored.
+SQL> SELECT LOC
+  2  FROM DEPT
+  3  WHERE DEPTNO IN(SELECT DEPTNO
+  4  FROM EMP
+  5  WHERE JOB='CLERK');
+
+LOC                                                                                                 
+-------------                                                                                       
+NEW YORK                                                                                            
+DALLAS                                                                                              
+CHICAGO                                                                                             
+
+SQL>  SELECT LOC
+  2   FROM DEPT
+  3   WHERE DEPTNO IN(SELECT DEPTNO
+  4   FROM EMP
+  5  WHERE EMPNO IN(SELECT MGR
+  6  FROM EMP
+  7  WHERE JOB='CLERK');
+WHERE JOB='CLERK')
+                 *
+ERROR at line 7:
+ORA-00907: missing right parenthesis 
+
+
+SQL>   SELECT LOC
+  2    FROM DEPT
+  3    WHERE DEPTNO IN(SELECT DEPTNO
+  4    FROM EMP
+  5   WHERE EMPNO IN(SELECT MGR
+  6   FROM EMP
+  7  WHERE JOB='CLERK'));
+
+LOC                                                                                                 
+-------------                                                                                       
+CHICAGO                                                                                             
+DALLAS                                                                                              
+NEW YORK                                                                                            
+
+SQL> WAQTD THE DETAILS OF SMITH'S MANAGER'S MANAGER.
+SP2-0734: unknown command beginning "WAQTD THE ..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE EMPNO IN(SELECT MGR
+  4  FROM EMP
+  5  WHERE EMPNO IN(SELECT MGR
+  6  FROM EMP
+  7  WHERE ENAME='SMITH');
+WHERE ENAME='SMITH')
+                   *
+ERROR at line 7:
+ORA-00907: missing right parenthesis 
+
+
+SQL>  SELECT *
+  2   FROM EMP
+  3   WHERE EMPNO IN(SELECT MGR
+  4   FROM EMP
+  5   WHERE EMPNO IN(SELECT MGR
+  6   FROM EMP
+  7  WHERE ENAME='SMITH'));
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+
+SQL> WAQTD NUMBER OF EMP REPORTING TO KING.
+SP2-0734: unknown command beginning "WAQTD NUMB..." - rest of line ignored.
+SQL> SELECT EMPNO
+  2  FROM EMP
+  3  WHERE EMPNO IN(SELECT MGR
+  4  FROM EMP
+  5  WHERE ENAME='KING');
+
+no rows selected
+
+SQL> SO HERE, WE USE CASE2 I.E., WRITTEN IN NOTEBOOK.
+SP2-0734: unknown command beginning "SO HERE, W..." - rest of line ignored.
+SQL> EARLIER, WE USED TO FIND MANAGER. BUT HERE WE HAVE TO FIND THE EMPLOYEE FROM GIVEN MANAGER NAME.
+SP2-0734: unknown command beginning "EARLIER, W..." - rest of line ignored.
+SQL> SELECT MGR FROM EMP
+  2  WHERE EMPNO IN(SELECT EMPNO
+  3  FROM EMP
+  4  WHERE ENAME='KING');
+
+       MGR                                                                                          
+----------                                                                                          
+                                                                                                    
+
+SQL> JUST TRIED ABOVE ONE. CORRECT ONE WILL BE WRITTEN BELOW.
+SP2-0734: unknown command beginning "JUST TRIED..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM MGR
+  3  WHERE
+  4  
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE MGR IN(SELECT EMPNO
+  4  FROM EMP
+  5  WGERE ENAME='KING');
+WGERE ENAME='KING')
+      *
+ERROR at line 5:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE MGR IN(SELECT EMPNO
+  4  FROM EMP
+  5  WHERE ENAME='KING');
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+
+SQL> SELECT COUNT(*)
+  2   SELECT *
+  3   FROM EMP
+  4   WHERE MGR IN(SELECT EMPNO
+  5   FROM EMP
+  6   WHERE ENAME='KING');
+ SELECT *
+ *
+ERROR at line 2:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT COUNT(*)
+  2  FROM EMP
+  3  WHERE MGR IN(SELECT EMPNO
+  4  FROM EMP
+  5  WHERE ENAME='KING');
+
+  COUNT(*)                                                                                          
+----------                                                                                          
+         3                                                                                          
+
+SQL> WAQTD THE DETAILS OF EMPLOYEE WHO ARE RE[PORTING TO BLAKE.
+SP2-0734: unknown command beginning "WAQTD THE ..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE MGR IN(SELECT EMPNO FROM EMP
+  4  WHERE ENAME='BLAKE');
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30               
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30               
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30               
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30               
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30               
+
+SQL> WAQTD DEPT NAME OF AN EMP WHO WERE REPORTING TO ANALYST.
+SP2-0734: unknown command beginning "WAQTD DEPT..." - rest of line ignored.
+SQL> SELECT DNAME
+  2  FROM DEPT
+  3  WHERE DEPTNO IN(SELECT EMPNO
+  4  FROM EMP
+  5  WHERE JOB='ANALYST');
+
+no rows selected
+
+SQL> SELECT DNAME
+  2  FROM DEPT
+  3  WHERE DEPTNO IN(SELECT MGR
+  4   FROM EMP
+  5   WHERE JOB='ANALYST');
+
+no rows selected
+
+SQL> SELECT DNAME
+  2  FROM DEPT
+  3  WHERE DEPTNO IN(SELECT DEPTNO
+  4  FROM EMP
+  5  WHERE MGR IN(SELECT EMPNO
+  6  FROM EMP
+  7  WHERE JOB='ANALYST'));
+
+DNAME                                                                                               
+--------------                                                                                      
+RESEARCH                                                                                            
+
+SQL> WAQTD LOCATION OF EMP WHO WERE REPORTING TO TURNER'S MANAGER.
+SP2-0734: unknown command beginning "WAQTD LOCA..." - rest of line ignored.
+SQL> SELECT LOC
+  2  FROM DEPT
+  3  WHERE DEPTNO IN(SELECT DEPTNO
+  4  FROM EMP
+  5  WHERE MGR IN(SELECT EMPNO
+  6  FROM EMP
+  7  WHERE EMPNO IN(SELECT MGR
+  8  FROM EMP
+  9  WHERE ENAME='TURNER')));
+
+LOC                                                                                                 
+-------------                                                                                       
+CHICAGO                                                                                             
+
+SQL> SPOOL OFF;

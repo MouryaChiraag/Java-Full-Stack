@@ -1,0 +1,252 @@
+SQL> SELECT *
+  2  FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7369 SMITH      CLERK           7902 17-DEC-80        800                 
+        20                                                                      
+                                                                                
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300      
+        30                                                                      
+                                                                                
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500      
+        30                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7566 JONES      MANAGER         7839 02-APR-81       2975                 
+        20                                                                      
+                                                                                
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400      
+        30                                                                      
+                                                                                
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                 
+        30                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                 
+        10                                                                      
+                                                                                
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                 
+        20                                                                      
+                                                                                
+      7839 KING       PRESIDENT            17-NOV-81       5000                 
+        10                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0      
+        30                                                                      
+                                                                                
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                 
+        20                                                                      
+                                                                                
+      7900 JAMES      CLERK           7698 03-DEC-81        950                 
+        30                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                 
+        20                                                                      
+                                                                                
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                 
+        10                                                                      
+                                                                                
+
+14 rows selected.
+
+SQL> SET PAGES 100
+SQL> SET LINES 100
+SQL> SE;LECT *
+SP2-0042: unknown command "SE;LECT *" - rest of line ignored.
+SQL> FROM EMP;
+SP2-0042: unknown command "FROM EMP" - rest of line ignored.
+SQL> SELECT *
+  2  FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20               
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30               
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20               
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10               
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30               
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20               
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10               
+
+14 rows selected.
+
+SQL> SELECT MAX(SAL),MIN(SAL),SUM(SAL)
+  2  FROM EMP
+  3  WHERE JOB='MANAGER';
+
+  MAX(SAL)   MIN(SAL)   SUM(SAL)                                                                    
+---------- ---------- ----------                                                                    
+      2975       2450       8275                                                                    
+
+SQL> SELECT COUNT(*)
+  2  FROM EMP
+  3  WHERE COMM IS NOT NULL AND DEPTNO IN(20,30) AND JOB='SALESMAN';
+
+  COUNT(*)                                                                                          
+----------                                                                                          
+         4                                                                                          
+
+SQL> SELECT COUNT(JOB)
+  2  FROM EMP;
+
+COUNT(JOB)                                                                                          
+----------                                                                                          
+        14                                                                                          
+
+SQL> SELECT SUM(JOB)
+  2  FROM EMP;
+SELECT SUM(JOB)
+           *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> SELECT COUNT(JOB)
+  2  FROM EMP;
+
+COUNT(JOB)                                                                                          
+----------                                                                                          
+        14                                                                                          
+
+SQL> SELECT COUNT(DISTINCT JOB)
+  2  FROM EMP;
+
+COUNT(DISTINCTJOB)                                                                                  
+------------------                                                                                  
+                 5                                                                                  
+
+SQL> SELECT MIN(HIREDATE)
+  2  FROM EMP;
+
+MIN(HIRED                                                                                           
+---------                                                                                           
+17-DEC-80                                                                                           
+
+SQL> SELECT UPPER('mouRYA')
+  2  FROM EMP;
+
+UPPER(                                                                                              
+------                                                                                              
+MOURYA                                                                                              
+MOURYA                                                                                              
+MOURYA                                                                                              
+MOURYA                                                                                              
+MOURYA                                                                                              
+MOURYA                                                                                              
+MOURYA                                                                                              
+MOURYA                                                                                              
+MOURYA                                                                                              
+MOURYA                                                                                              
+MOURYA                                                                                              
+MOURYA                                                                                              
+MOURYA                                                                                              
+MOURYA                                                                                              
+
+14 rows selected.
+
+SQL> SELECT UPPER('Mourya')
+  2  FROM DUAL;
+
+UPPER(                                                                                              
+------                                                                                              
+MOURYA                                                                                              
+
+SQL> SELECT UPPER('mourya')
+  2  from dual;
+
+UPPER(                                                                                              
+------                                                                                              
+MOURYA                                                                                              
+
+SQL> SELECT LOWER('MOURYA')
+  2  FROM DUAL;
+
+LOWER(                                                                                              
+------                                                                                              
+mourya                                                                                              
+
+SQL> SELECT LOWER('MOURYA')PS
+  2  FROM DUAL;
+
+PS                                                                                                  
+------                                                                                              
+mourya                                                                                              
+
+SQL> SELECT MOD(9,2)MODULUS
+  2  FROM DUAL;
+
+   MODULUS                                                                                          
+----------                                                                                          
+         1                                                                                          
+
+SQL> CONCAT('HELLO','MCB')
+SP2-0734: unknown command beginning "CONCAT('HE..." - rest of line ignored.
+SQL> FROM DUAL;
+SP2-0042: unknown command "FROM DUAL" - rest of line ignored.
+SQL> SELECT CONCAT('Mr',CONCAT(ENAME,CONCAT('YOUR SALARY IS',CONCAT(SAL,'Rs')))
+  2  FROM DUAL;
+FROM DUAL
+*
+ERROR at line 2:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SELECT CONCAT('Mr',CONCAT(ENAME,CONCAT('YOUR SALARY IS',CONCAT(SAL,'Rs'))) AS CONCAT_FUNCTION
+  2  FROM EMP;
+SELECT CONCAT('Mr',CONCAT(ENAME,CONCAT('YOUR SALARY IS',CONCAT(SAL,'Rs'))) AS CONCAT_FUNCTION
+                                                                           *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SELECT CONCAT('Mr',CONCAT(ENAME,CONCAT('YOUR SALARY IS',CONCAT(SAL,'Rs')))) AS CONCAT_FUNCTION
+  2  FROM EMP;
+
+CONCAT_FUNCTION                                                                                     
+--------------------------------------------------------------------                                
+MrSMITHYOUR SALARY IS800Rs                                                                          
+MrALLENYOUR SALARY IS1600Rs                                                                         
+MrWARDYOUR SALARY IS1250Rs                                                                          
+MrJONESYOUR SALARY IS2975Rs                                                                         
+MrMARTINYOUR SALARY IS1250Rs                                                                        
+MrBLAKEYOUR SALARY IS2850Rs                                                                         
+MrCLARKYOUR SALARY IS2450Rs                                                                         
+MrSCOTTYOUR SALARY IS3000Rs                                                                         
+MrKINGYOUR SALARY IS5000Rs                                                                          
+MrTURNERYOUR SALARY IS1500Rs                                                                        
+MrADAMSYOUR SALARY IS1100Rs                                                                         
+MrJAMESYOUR SALARY IS950Rs                                                                          
+MrFORDYOUR SALARY IS3000Rs                                                                          
+MrMILLERYOUR SALARY IS1300Rs                                                                        
+
+14 rows selected.
+
+SQL> SPOOL OFF;

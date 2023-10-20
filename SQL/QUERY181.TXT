@@ -1,0 +1,206 @@
+SQL> SELECT 'Mr.'||ENAME||', YOUR SALARY IS'||SAL||'Rs.'
+  2  FROM EMP;
+
+'MR.'||ENAME||',YOURSALARYIS'||SAL||'RS.'                                       
+------------------------------------------------------------------------        
+Mr.SMITH, YOUR SALARY IS800Rs.                                                  
+Mr.ALLEN, YOUR SALARY IS1600Rs.                                                 
+Mr.WARD, YOUR SALARY IS1250Rs.                                                  
+Mr.JONES, YOUR SALARY IS2975Rs.                                                 
+Mr.MARTIN, YOUR SALARY IS1250Rs.                                                
+Mr.BLAKE, YOUR SALARY IS2850Rs.                                                 
+Mr.CLARK, YOUR SALARY IS2450Rs.                                                 
+Mr.SCOTT, YOUR SALARY IS3000Rs.                                                 
+Mr.KING, YOUR SALARY IS5000Rs.                                                  
+Mr.TURNER, YOUR SALARY IS1500Rs.                                                
+Mr.ADAMS, YOUR SALARY IS1100Rs.                                                 
+
+'MR.'||ENAME||',YOURSALARYIS'||SAL||'RS.'                                       
+------------------------------------------------------------------------        
+Mr.JAMES, YOUR SALARY IS950Rs.                                                  
+Mr.FORD, YOUR SALARY IS3000Rs.                                                  
+Mr.MILLER, YOUR SALARY IS1300Rs.                                                
+
+14 rows selected.
+
+SQL> SET PAGES 100
+SQL> SET LINES 100
+SQL> SELECT ENAME||'WORKS AS'||JOB||
+  2  FROM EMP;
+FROM EMP
+*
+ERROR at line 2:
+ORA-00936: missing expression 
+
+
+SQL> SELECT ENAME||'WORKS AS'||JOB||'.'
+  2  FROM EMP;
+
+ENAME||'WORKSAS'||JOB||'.'                                                                          
+----------------------------                                                                        
+SMITHWORKS ASCLERK.                                                                                 
+ALLENWORKS ASSALESMAN.                                                                              
+WARDWORKS ASSALESMAN.                                                                               
+JONESWORKS ASMANAGER.                                                                               
+MARTINWORKS ASSALESMAN.                                                                             
+BLAKEWORKS ASMANAGER.                                                                               
+CLARKWORKS ASMANAGER.                                                                               
+SCOTTWORKS ASANALYST.                                                                               
+KINGWORKS ASPRESIDENT.                                                                              
+TURNERWORKS ASSALESMAN.                                                                             
+ADAMSWORKS ASCLERK.                                                                                 
+JAMESWORKS ASCLERK.                                                                                 
+FORDWORKS ASANALYST.                                                                                
+MILLERWORKS ASCLERK.                                                                                
+
+14 rows selected.
+
+SQL> 
+SQL>  SELECT ENAME||'WORKS AS'||JOB||'.'
+  2   FROM EMP;
+
+ENAME||'WORKSAS'||JOB||'.'                                                                          
+----------------------------                                                                        
+SMITHWORKS ASCLERK.                                                                                 
+ALLENWORKS ASSALESMAN.                                                                              
+WARDWORKS ASSALESMAN.                                                                               
+JONESWORKS ASMANAGER.                                                                               
+MARTINWORKS ASSALESMAN.                                                                             
+BLAKEWORKS ASMANAGER.                                                                               
+CLARKWORKS ASMANAGER.                                                                               
+SCOTTWORKS ASANALYST.                                                                               
+KINGWORKS ASPRESIDENT.                                                                              
+TURNERWORKS ASSALESMAN.                                                                             
+ADAMSWORKS ASCLERK.                                                                                 
+JAMESWORKS ASCLERK.                                                                                 
+FORDWORKS ASANALYST.                                                                                
+MILLERWORKS ASCLERK.                                                                                
+
+14 rows selected.
+
+SQL> 
+SQL>  SELECT ENAME||'WORKS AS'||JOB||'.'
+  2   FROM EMP
+  3  WHERE JOB='SALESMAN';
+
+ENAME||'WORKSAS'||JOB||'.'                                                                          
+----------------------------                                                                        
+ALLENWORKS ASSALESMAN.                                                                              
+WARDWORKS ASSALESMAN.                                                                               
+MARTINWORKS ASSALESMAN.                                                                             
+TURNERWORKS ASSALESMAN.                                                                             
+
+SQL> SELECT MAX(SAL)
+  2  FROM EMP;
+
+  MAX(SAL)                                                                                          
+----------                                                                                          
+      5000                                                                                          
+
+SQL> SELECT AVG(COMM)
+  2  FROM EMP;
+
+ AVG(COMM)                                                                                          
+----------                                                                                          
+       550                                                                                          
+
+SQL> SELECT MAX(MIN(SAL))
+  2  FROM EMP;
+SELECT MAX(MIN(SAL))
+           *
+ERROR at line 1:
+ORA-00978: nested group function without GROUP BY 
+
+
+SQL> SELECT MAX(SAL),ENAME
+  2  FROM EMP;
+SELECT MAX(SAL),ENAME
+                *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> SELECT AVG(SAL,COMM)
+  2  FROM EMP;
+SELECT AVG(SAL,COMM)
+       *
+ERROR at line 1:
+ORA-00909: invalid number of arguments 
+
+
+SQL> SELECT MAX(SAL)
+  2  FROM EMP
+  3  WHERE SAL>500;
+
+  MAX(SAL)                                                                                          
+----------                                                                                          
+      5000                                                                                          
+
+SQL> THE ABOVE STATEMENT HAS TO BE WRONG
+SP2-0734: unknown command beginning "THE ABOVE ..." - rest of line ignored.
+SQL> 
+SQL> SELECT SUM(COMM)
+  2  FROM EMP;
+
+ SUM(COMM)                                                                                          
+----------                                                                                          
+      2200                                                                                          
+
+SQL> SELECT MAX(SAL),MIN(SAL)
+  2  FROM EMP;
+
+  MAX(SAL)   MIN(SAL)                                                                               
+---------- ----------                                                                               
+      5000        800                                                                               
+
+SQL> SELECT AVG(SAL),COUNT(SAL)
+  2  FROM EMP;
+
+  AVG(SAL) COUNT(SAL)                                                                               
+---------- ----------                                                                               
+2073.21429         14                                                                               
+
+SQL> SELECT AVG(SAL),COUNT(SAL),JOB NOT IN ('PRESIDENT')
+  2  FROM EMP;
+SELECT AVG(SAL),COUNT(SAL),JOB NOT IN ('PRESIDENT')
+                               *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT AVG(SAL),SUM(SAL)
+  2  FROM EMP
+  3  WHERE JOB!='PRESIDENT';
+
+  AVG(SAL)   SUM(SAL)                                                                               
+---------- ----------                                                                               
+1848.07692      24025                                                                               
+
+SQL> SELECT SUM(SAL),MAX(SAL),MIN(COMM)
+  2  FROM EMP
+  3  WHERE ENAME NOT LIKE 'S%' AND ENAME NOT LIKE '%A';
+
+  SUM(SAL)   MAX(SAL)  MIN(COMM)                                                                    
+---------- ---------- ----------                                                                    
+     25225       5000          0                                                                    
+
+SQL> SELECT SUM(SAL)
+  2  FROM EMP
+  3  WHERE JOB='SALESMAN';
+
+  SUM(SAL)                                                                                          
+----------                                                                                          
+      5600                                                                                          
+
+SQL> SELECT SUM(SAL)
+  2  FROM EMP
+  3  WHERE (JOB='ANALYST' AND JOB='MANAGER') AND (DEPTNO=10 AND DEPTNO=20);
+
+  SUM(SAL)                                                                                          
+----------                                                                                          
+                                                                                                    
+
+SQL> THE ABOVE ONE IS WRONG
+SP2-0734: unknown command beginning "THE ABOVE ..." - rest of line ignored.
+SQL> 
+SQL> SPOOL OFF;

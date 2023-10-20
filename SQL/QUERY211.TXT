@@ -1,0 +1,258 @@
+SQL> SET PAGES 100
+SQL> SET LINES 100
+SQL> SELECT ENAME,JOB
+  2  FROM EMP
+  3  WHERE SUBSTR(ENAME,1,1)='S';
+
+ENAME      JOB                                                                                      
+---------- ---------                                                                                
+SMITH      CLERK                                                                                    
+SCOTT      ANALYST                                                                                  
+
+SQL> SELECT ENAME,JOB,HIREDATE
+  2  FROM EMP
+  3  WHERE SUBSTR(JOB,1,3) IN ('SAL','MAN');
+
+ENAME      JOB       HIREDATE                                                                       
+---------- --------- ---------                                                                      
+ALLEN      SALESMAN  20-FEB-81                                                                      
+WARD       SALESMAN  22-FEB-81                                                                      
+JONES      MANAGER   02-APR-81                                                                      
+MARTIN     SALESMAN  28-SEP-81                                                                      
+BLAKE      MANAGER   01-MAY-81                                                                      
+CLARK      MANAGER   09-JUN-81                                                                      
+TURNER     SALESMAN  08-SEP-81                                                                      
+
+7 rows selected.
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE SUBSTR(ENAME,1,2)='MA';
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30               
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE SUBSTR(ENAME,-1,1)='R';
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30               
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10               
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE
+  4  
+SQL> SELECT LOWER(ENAME)
+  2  FROM EMP
+  3  WHERE LOWER(ENAME)=ENAME/2;
+WHERE LOWER(ENAME)=ENAME/2
+      *
+ERROR at line 3:
+ORA-01722: invalid number 
+
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE LENGTH(LOWER(ENAME/2));
+WHERE LENGTH(LOWER(ENAME/2))
+                           *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE LENGTH=LOWER(ENAME)/2;
+WHERE LENGTH=LOWER(ENAME)/2
+      *
+ERROR at line 3:
+ORA-00904: "LENGTH": invalid identifier 
+
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE LENGTH(ENAME)=LOWER(ENAME)/2;
+WHERE LENGTH(ENAME)=LOWER(ENAME)/2
+                    *
+ERROR at line 3:
+ORA-01722: invalid number 
+
+
+SQL> SELECT SUBSTR(ENAME,1,LENGTH(ENAME)/2)
+  2  
+SQL> SELECT LOWER(SUBSTR(ENAME,1,LENGTH(ENAME)/2))
+  2  FROM EMP;
+
+LOWER(SUBS                                                                                          
+----------                                                                                          
+sm                                                                                                  
+al                                                                                                  
+wa                                                                                                  
+jo                                                                                                  
+mar                                                                                                 
+bl                                                                                                  
+cl                                                                                                  
+sc                                                                                                  
+ki                                                                                                  
+tur                                                                                                 
+ad                                                                                                  
+ja                                                                                                  
+fo                                                                                                  
+mil                                                                                                 
+
+14 rows selected.
+
+SQL> SELECT LOWER(SUBSTR(ENAME)/2))
+  2  FROM EMP;
+SELECT LOWER(SUBSTR(ENAME)/2))
+                             *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT LOWER(SUBSTR(ENAME,LENGTH(ENAME)/2+1))
+  2  FROM EMP;
+
+LOWER(SUBS                                                                                          
+----------                                                                                          
+ith                                                                                                 
+len                                                                                                 
+rd                                                                                                  
+nes                                                                                                 
+tin                                                                                                 
+ake                                                                                                 
+ark                                                                                                 
+ott                                                                                                 
+ng                                                                                                  
+ner                                                                                                 
+ams                                                                                                 
+mes                                                                                                 
+rd                                                                                                  
+ler                                                                                                 
+
+14 rows selected.
+
+SQL> SELECT UPPER(SUBSTR(ENAME,LENGTH(ENAME)/2+1))
+  2  FROM EMP;
+
+UPPER(SUBS                                                                                          
+----------                                                                                          
+ITH                                                                                                 
+LEN                                                                                                 
+RD                                                                                                  
+NES                                                                                                 
+TIN                                                                                                 
+AKE                                                                                                 
+ARK                                                                                                 
+OTT                                                                                                 
+NG                                                                                                  
+NER                                                                                                 
+AMS                                                                                                 
+MES                                                                                                 
+RD                                                                                                  
+LER                                                                                                 
+
+14 rows selected.
+
+SQL> SELECT LOWER(SUBSTR(ENAME,1,LENGTH(ENAME)/2))||REVERSE(SUBSTR(ENAME,LENGTH(ENAME)/2+1))
+  2  FROM EMP;
+
+LOWER(SUBSTR(ENAME,1                                                                                
+--------------------                                                                                
+smHTI                                                                                               
+alNEL                                                                                               
+waDR                                                                                                
+joSEN                                                                                               
+marNIT                                                                                              
+blEKA                                                                                               
+clKRA                                                                                               
+scTTO                                                                                               
+kiGN                                                                                                
+turREN                                                                                              
+adSMA                                                                                               
+jaSEM                                                                                               
+foDR                                                                                                
+milREL                                                                                              
+
+14 rows selected.
+
+SQL> SELECT ENAME,JOB,HIREDATE
+  2  FROM EMP
+  3  WHERE SUBSTR(HIREDATE,-2,2)IN(80,82,87);
+
+ENAME      JOB       HIREDATE                                                                       
+---------- --------- ---------                                                                      
+SMITH      CLERK     17-DEC-80                                                                      
+SCOTT      ANALYST   19-APR-87                                                                      
+ADAMS      CLERK     23-MAY-87                                                                      
+MILLER     CLERK     23-JAN-82                                                                      
+
+SQL> WAQTD THE DTAILS OF EMP IF EMP NAME STARTS WITH VOWELS
+SP2-0734: unknown command beginning "WAQTD THE ..." - rest of line ignored.
+SQL> 
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE SUBSTR(ENAME,1)IN(A,E,I,O,U);
+WHERE SUBSTR(ENAME,1)IN(A,E,I,O,U)
+                                *
+ERROR at line 3:
+ORA-00904: "U": invalid identifier 
+
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE SUBSTR(ENAME,1,1)IN('A','E','I','O','U');
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30               
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20               
+
+SQL> WAQTD NOT IN CONSONANTS
+SP2-0734: unknown command beginning "WAQTD NOT ..." - rest of line ignored.
+SQL> 
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE SUBSTR(ENAME,1,1)
+  4  
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE SUBSTR(ENAME,1,1
+  4  
+SQL> USE NOTIN OPERATOR...
+SP2-0734: unknown command beginning "USE NOTIN ..." - rest of line ignored.
+SQL> 
+SQL> 
+SQL> 
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE COUNT('A')IN('SHARATH') AND COUNT('U')IN('PUNITH');
+WHERE COUNT('A')IN('SHARATH') AND COUNT('U')IN('PUNITH')
+      *
+ERROR at line 3:
+ORA-00934: group function is not allowed here 
+
+
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE LENGTH('A');
+WHERE LENGTH('A')
+                *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE LENGTH(SUBSTR(ENAME));
+WHERE LENGTH(SUBSTR(ENAME))
+                          *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> SPOOL OFF

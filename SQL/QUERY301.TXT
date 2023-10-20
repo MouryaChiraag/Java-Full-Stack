@@ -1,0 +1,331 @@
+SQL> SET PAGES 100
+SQL> SET LINES 100
+SQL> SELECT *
+  2  FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20               
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30               
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20               
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10               
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30               
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20               
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10               
+
+14 rows selected.
+
+SQL> SELECT SUM(SAL),DEPTNO
+  2  FROM EMP
+  3  WHERE DEPTNO!=10
+  4  GROUP BY DEPTNO;
+
+  SUM(SAL)     DEPTNO                                                                               
+---------- ----------                                                                               
+      9400         30                                                                               
+     10875         20                                                                               
+
+SQL> WAQTD TOTAL SAL PRESENT IN EACHB DEPT.------>ABOVE QUESTION.
+SP2-0734: unknown command beginning "WAQTD TOTA..." - rest of line ignored.
+SQL> SELECT SUM(SAL)
+  2  FROM EMP
+  3  WHERE DEPTNO<>10
+  4  GROUP BY DEPTNO;
+
+  SUM(SAL)                                                                                          
+----------                                                                                          
+      9400                                                                                          
+     10875                                                                                          
+
+SQL> WAQTD MAX SAL, MIN SAL, AVG SAL AND TOTAL SAL GIVEN TO ALL THE EMPLOYEES IN EACH DEPT IF THEY ARE GETTING SAL MORE THAMN 1000 BUT LESS TA
+SP2-0734: unknown command beginning "WAQTD MAX ..." - rest of line ignored.
+SQL> BUT LESS THAN 3000
+SP2-0734: unknown command beginning "BUT LESS T..." - rest of line ignored.
+SQL> SELECT MAX(SAL),MIN(SAL),AVG(SAL),TOTAL(SAL)
+  2  FROM EMP;
+SELECT MAX(SAL),MIN(SAL),AVG(SAL),TOTAL(SAL)
+                                  *
+ERROR at line 1:
+ORA-00904: "TOTAL": invalid identifier 
+
+
+SQL> SELECT MAX(SAL),MIN(SAL),AVG(SAL),SUM(SAL)
+  2  FROM EMP;
+
+  MAX(SAL)   MIN(SAL)   AVG(SAL)   SUM(SAL)                                                         
+---------- ---------- ---------- ----------                                                         
+      5000        800 2073.21429      29025                                                         
+
+SQL> SELECT MAX(SAL),MIN(SAL),AVG(SAL),SUM(SAL),DEPTNO
+  2  FROM EMP
+  3  WHERE SAL BETWEEN 1001 AND 2999
+  4  GROUP  BY DEPTNO;
+
+  MAX(SAL)   MIN(SAL)   AVG(SAL)   SUM(SAL)     DEPTNO                                              
+---------- ---------- ---------- ---------- ----------                                              
+      2850       1250       1690       8450         30                                              
+      2975       1100     2037.5       4075         20                                              
+      2450       1300       1875       3750         10                                              
+
+SQL> WAQTD REPEATED SALARIES /DUPLICATE SALARIES.
+SP2-0734: unknown command beginning "WAQTD REPE..." - rest of line ignored.
+SQL> SELECT SAL
+  2  FROM EMP
+  3  GROUP BY SAL
+  4  HAVING COUNT(SAL)>1;
+
+       SAL                                                                                          
+----------                                                                                          
+      1250                                                                                          
+      3000                                                                                          
+
+SQL> SELECT *
+  2  FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20               
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30               
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20               
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10               
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30               
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20               
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10               
+
+14 rows selected.
+
+SQL> FRO PREVIOUS QUESTION
+SP2-0734: unknown command beginning "FRO PREVIO..." - rest of line ignored.
+SQL> SELECT SAL,COUNT(*)
+  2  FROM EMP
+  3  GROUP BY SAL
+  4  HAVING COUNT(SAL)>1;
+
+       SAL   COUNT(*)                                                                               
+---------- ----------                                                                               
+      1250          2                                                                               
+      3000          2                                                                               
+
+SQL> WAQTD THE HIREDATE AND NAME OF EMP AND ADD HIREDATE WITH 2 YEARS----->>> THIS QUESTION IS RELATED TO OLD CONCEPT IT MAY BE DATE CONCEPT.....JUST REMEMBERED AND TAUGHT IT NOW
+SP2-0734: unknown command beginning "WAQTD THE ..." - rest of line ignored.
+SQL> SELECT TO_CHAR(HIREADTE,'YYY')+2
+  2  FROM EMP;
+SELECT TO_CHAR(HIREADTE,'YYY')+2
+               *
+ERROR at line 1:
+ORA-00904: "HIREADTE": invalid identifier 
+
+
+SQL> SELECT ENAME,TO_CHAR(HIREDATE,'YYYY')
+  2  FROM RMP;
+FROM RMP
+     *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+SQL>  SELECT ENAME,TO_CHAR(HIREDATE,'YYYY')
+  2  FROM RMP;
+FROM RMP
+     *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+SQL>  SELECT ENAME,TO_CHAR(HIREDATE,'YYYY')
+  2  FROM EMP;
+
+ENAME      TO_C                                                                                     
+---------- ----                                                                                     
+SMITH      1980                                                                                     
+ALLEN      1981                                                                                     
+WARD       1981                                                                                     
+JONES      1981                                                                                     
+MARTIN     1981                                                                                     
+BLAKE      1981                                                                                     
+CLARK      1981                                                                                     
+SCOTT      1987                                                                                     
+KING       1981                                                                                     
+TURNER     1981                                                                                     
+ADAMS      1987                                                                                     
+JAMES      1981                                                                                     
+FORD       1981                                                                                     
+MILLER     1982                                                                                     
+
+14 rows selected.
+
+SQL> WAQTD HIREDATE AND DEPTNO IF THE EMP HIRED ON SAME DAY IN SAME DEPT.
+SP2-0734: unknown command beginning "WAQTD HIRE..." - rest of line ignored.
+SQL> SELECT TO_CHAR(HIREDATE,'DD'),DEPTNO
+  2  FROM EMP
+  3  GROUP BY DEPTNO
+  4  HAVING COUNT(HIREDATE)=1 AND COUNT(DEPTNO)=1;
+SELECT TO_CHAR(HIREDATE,'DD'),DEPTNO
+               *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> SELECT HIREDATE,DEPTNO
+  2  FROM EMP
+  3  GROUP BY HIREDATE,DEPTNO
+  4  HAVING COUNT(*)>1;
+
+no rows selected
+
+SQL> ANSWER IS CORRECT BUT THERE ARE NO EMP OF SAM DATE AND DEPT. IN THE GIVEN EMP TABLE
+SP2-0734: unknown command beginning "ANSWER IS ..." - rest of line ignored.
+SQL> SELECT HIREDATE,DEPTNO,COUNT(*)
+  2   FROM EMP
+  3   GROUP BY HIREDATE,DEPTNO
+  4   HAVING COUNT(*)>1;
+
+no rows selected
+
+SQL> WAQTD HIREDATE OF EMP WHO WERE HIRED ON THE SAME DAY
+SP2-0734: unknown command beginning "WAQTD HIRE..." - rest of line ignored.
+SQL> SELECT HIREDATE,COUNT(*)
+  2  FROM EMP
+  3  GROUP BY HIREDATE
+  4  HAVING COUNT(*)>1;
+
+HIREDATE    COUNT(*)                                                                                
+--------- ----------                                                                                
+03-DEC-81          2                                                                                
+
+SQL> OR YOU CAN WRITE COUNT(HIREDATE)>1;
+SP2-0734: unknown command beginning "OR YOU CAN..." - rest of line ignored.
+SQL> WAQTD THE DETAILS OF EMP IF THE NAME CONTAINS ATLEAST 1 B IN IT.
+SP2-0734: unknown command beginning "WAQTD THE ..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE ENAME LIKE '%B%;
+ERROR:
+ORA-01756: quoted string not properly terminated 
+
+
+SQL>  SELECT *
+  2   FROM EMP
+  3   WHERE ENAME LIKE '%B
+  4  R:
+  5  SELE
+  6  
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE ENAME LIKE '%B%';
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+
+SQL> ORR YOUU CAN DO IT USING
+SP2-0734: unknown command beginning "ORR YOUU C..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE COUNT(ENAME)-COUNT(REPLACE(ENAME,'B'))>0;
+WHERE COUNT(ENAME)-COUNT(REPLACE(ENAME,'B'))>0
+      *
+ERROR at line 3:
+ORA-00934: group function is not allowed here 
+
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE (COUNT(ENAME)-COUNT(REPLACE(ENAME,'B')))>0;
+WHERE (COUNT(ENAME)-COUNT(REPLACE(ENAME,'B')))>0
+       *
+ERROR at line 3:
+ORA-00934: group function is not allowed here 
+
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE INSTR(ENAME,'B',1,1)>);
+WHERE INSTR(ENAME,'B',1,1)>)
+                           *
+ERROR at line 3:
+ORA-00936: missing expression 
+
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE INSTR(ENAME,'B',1,1)>0;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+
+SQL> WAQTD EMP SALARIES IN DESCENDING ORDER.
+SP2-0734: unknown command beginning "WAQTD EMP ..." - rest of line ignored.
+SQL> SELECT SAL
+  2  FROM EMP
+  3  ORDER BY SAL DESC;
+
+       SAL                                                                                          
+----------                                                                                          
+      5000                                                                                          
+      3000                                                                                          
+      3000                                                                                          
+      2975                                                                                          
+      2850                                                                                          
+      2450                                                                                          
+      1600                                                                                          
+      1500                                                                                          
+      1300                                                                                          
+      1250                                                                                          
+      1250                                                                                          
+      1100                                                                                          
+       950                                                                                          
+       800                                                                                          
+
+14 rows selected.
+
+SQL> HERE COMES NEW CLAUSE THAT IS ORDER BY;
+SP2-0734: unknown command beginning "HERE COMES..." - rest of line ignored.
+SQL> PUT LENGTH INSTEAD OF COUNT IN PREVIOUS EXAMPLE 2ND CASE.
+SP2-0734: unknown command beginning "PUT LENGTH..." - rest of line ignored.
+SQL> NOW COME BACK TO ORDER BY
+SP2-0734: unknown command beginning "NOW COME B..." - rest of line ignored.
+SQL> WAQTD DETAILS OF EMP IF THE MP IS WORKING AS SALESMAN IN ASC ORDER BASED ON DEPTNO.
+SP2-0734: unknown command beginning "WAQTD DETA..." - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE JOB='SALESMAN'
+  4  ODER BY DEPTNO;
+ODER BY DEPTNO
+*
+ERROR at line 4:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> CHANGE QUESTION TO BASED ON SALARY.
+SP2-0023: String not found.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE JOB='SALESMAN'
+  4  ORDER BY SAL;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30               
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30               
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30               
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30               
+
+SQL> SPOOL OFF;

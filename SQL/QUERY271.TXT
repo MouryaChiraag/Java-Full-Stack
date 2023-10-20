@@ -1,0 +1,320 @@
+SQL> SELECT *
+  2  FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7369 SMITH      CLERK           7902 17-DEC-80        800                 
+        20                                                                      
+                                                                                
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300      
+        30                                                                      
+                                                                                
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500      
+        30                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7566 JONES      MANAGER         7839 02-APR-81       2975                 
+        20                                                                      
+                                                                                
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400      
+        30                                                                      
+                                                                                
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                 
+        30                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                 
+        10                                                                      
+                                                                                
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                 
+        20                                                                      
+                                                                                
+      7839 KING       PRESIDENT            17-NOV-81       5000                 
+        10                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0      
+        30                                                                      
+                                                                                
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                 
+        20                                                                      
+                                                                                
+      7900 JAMES      CLERK           7698 03-DEC-81        950                 
+        30                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                 
+        20                                                                      
+                                                                                
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                 
+        10                                                                      
+                                                                                
+
+14 rows selected.
+
+SQL> HAVING CLAUSE...
+SP2-0734: unknown command beginning "HAVING CLA..." - rest of line ignored.
+SQL> WAQTD NO. OF EMP GETTING MAX SAL GREATER THAN 500 IN EACH DEPT.
+SP2-0734: unknown command beginning "WAQTD NO. ..." - rest of line ignored.
+SQL> SELECT COUNT(*),DNO
+  2  FROM EMP
+  3  GROUP BY DEPTNO
+  4  HAVING MAX(SAL)>500;
+SELECT COUNT(*),DNO
+                *
+ERROR at line 1:
+ORA-00904: "DNO": invalid identifier 
+
+
+SQL> SELECT COUNT(*),DEPTNO
+  2  FROM EMP
+  3  GROUP BY DEPTNO
+  4  HAVING MAX(SAL)>500;
+
+  COUNT(*)     DEPTNO                                                           
+---------- ----------                                                           
+         6         30                                                           
+         5         20                                                           
+         3         10                                                           
+
+SQL> WAQTD NAME AND COMM GIVEN TO ALL EMP IF THE COMM IS NULL, PRINT IT AS N/A---->PREVIOUS CLASS QUESTION...
+SP2-0734: unknown command beginning "WAQTD NAME..." - rest of line ignored.
+SQL> SELECT ENAME,NVL(JOB,'N/A')
+  2  FROM EMP;
+
+ENAME      NVL(JOB,'                                                            
+---------- ---------                                                            
+SMITH      CLERK                                                                
+ALLEN      SALESMAN                                                             
+WARD       SALESMAN                                                             
+JONES      MANAGER                                                              
+MARTIN     SALESMAN                                                             
+BLAKE      MANAGER                                                              
+CLARK      MANAGER                                                              
+SCOTT      ANALYST                                                              
+KING       PRESIDENT                                                            
+TURNER     SALESMAN                                                             
+ADAMS      CLERK                                                                
+
+ENAME      NVL(JOB,'                                                            
+---------- ---------                                                            
+JAMES      CLERK                                                                
+FORD       ANALYST                                                              
+MILLER     CLERK                                                                
+
+14 rows selected.
+
+SQL> SET PAGES 100
+SQL> SET LINES 100
+SQL>  SELECT ENAME,NVL(JOB,'N/A')
+  2   FROM EMP;
+
+ENAME      NVL(JOB,'                                                                                
+---------- ---------                                                                                
+SMITH      CLERK                                                                                    
+ALLEN      SALESMAN                                                                                 
+WARD       SALESMAN                                                                                 
+JONES      MANAGER                                                                                  
+MARTIN     SALESMAN                                                                                 
+BLAKE      MANAGER                                                                                  
+CLARK      MANAGER                                                                                  
+SCOTT      ANALYST                                                                                  
+KING       PRESIDENT                                                                                
+TURNER     SALESMAN                                                                                 
+ADAMS      CLERK                                                                                    
+JAMES      CLERK                                                                                    
+FORD       ANALYST                                                                                  
+MILLER     CLERK                                                                                    
+
+14 rows selected.
+
+SQL> WAQTD NUMBER OF EMP GETTING SAL MORE THAN 1250 AND THE MAX SAL LESS THAN 4200 IN EACH DEPT.
+SP2-0734: unknown command beginning "WAQTD NUMB..." - rest of line ignored.
+SQL> SELECT COUNT(*),DEPTNO
+  2  FROM EMP
+  3  GROUP BY DEPTNO
+  4  HAVING SAL
+  5  
+SQL> FROM EMP
+SP2-0042: unknown command "FROM EMP" - rest of line ignored.
+SQL> SELECT COUNT(*),DEPTNO
+  2  FROM EMP
+  3  WHERE SAL>1250
+  4  GROUP BY DEPTNO
+  5  WHERE MAX(SAL)<4200;
+WHERE MAX(SAL)<4200
+*
+ERROR at line 5:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> SELECT COUNT(*),DEPT
+  2  FROM EMP
+  3  WHERE SAL>1250
+  4  GROUP BY DEPTNO
+  5  HAVING MAX(SAL)<4200;
+SELECT COUNT(*),DEPT
+                *
+ERROR at line 1:
+ORA-00904: "DEPT": invalid identifier 
+
+
+SQL> SELECT COUNT(*),DEPTNO
+  2  FROM EMP
+  3  WHERE SAL>1250
+  4  GROUP BY DEPTNO
+  5  HAVING MAX(SAL)<4200;
+
+  COUNT(*)     DEPTNO                                                                               
+---------- ----------                                                                               
+         3         30                                                                               
+         3         20                                                                               
+
+SQL> WAQTD MIN SAL GIVEN TO ALL MANAGER IN EACH DEPT IF THEY ARE GETTING MAX SAL GREATER THAN 500;
+SP2-0734: unknown command beginning "WAQTD MIN ..." - rest of line ignored.
+SQL> SELECT MIN(SAL)
+  2  FROM EMP
+  3  WHERE JOB='MANAGER'
+  4  GROUP BY DEPTNO
+  5  HAVING MAX(SAL)>500;
+
+  MIN(SAL)                                                                                          
+----------                                                                                          
+      2850                                                                                          
+      2975                                                                                          
+      2450                                                                                          
+
+SQL> SELECT MIN(SAL),DEPTNO
+  2  FROM EMP
+  3  WHERE JOB='MANAGER'
+  4  GROUP BY DEPTNO
+  5  HAVING MAX(SAL)>500;
+
+  MIN(SAL)     DEPTNO                                                                               
+---------- ----------                                                                               
+      2850         30                                                                               
+      2975         20                                                                               
+      2450         10                                                                               
+
+SQL> SELECT COUNT(*),SELECT MIN(SAL),DEPTNO
+  2  FROM EMP
+  3  WHERE JOB='MANAGER'
+  4  GROUP BY DEPTNO
+  5  HAVING MAX(SAL)>500;
+SELECT COUNT(*),SELECT MIN(SAL),DEPTNO
+                *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> WAQTD AVG SAL GIVEN TO ALL ANALYST IN EACH DEPT IF THEY ARE GETTING AVG SAL BETWEEN 2200 AND 3500;
+SP2-0734: unknown command beginning "WAQTD AVG ..." - rest of line ignored.
+SQL> WAQTD NO. OF EMP PRESENT IN ECAH JOB IN WHICH ATLEAST 3 EMPS ARE WORKING.
+SP2-0734: unknown command beginning "WAQTD NO. ..." - rest of line ignored.
+SQL> SELEVCT COUNT(*),JOB
+SP2-0734: unknown command beginning "SELEVCT CO..." - rest of line ignored.
+SQL> FROM EMP
+SP2-0042: unknown command "FROM EMP" - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> 
+SQL> SELECT COUNT(*),JOB
+  2  FROM EMP
+  3  GROUP BY JOB
+  4  HAVING EMP>=3;
+HAVING EMP>=3
+       *
+ERROR at line 4:
+ORA-00904: "EMP": invalid identifier 
+
+
+SQL> SELECT COUNT(*),JOB
+  2  FROM EMP
+  3  GROUP BY JOB
+  4  HAVING COUNT(*)>=3;
+
+  COUNT(*) JOB                                                                                      
+---------- ---------                                                                                
+         4 CLERK                                                                                    
+         4 SALESMAN                                                                                 
+         3 MANAGER                                                                                  
+
+SQL> WAQTD NO. OF EMP PRESENT IN EACH JOB IN WHICH ATLEAST 3 EMPS ARE WORKING.
+SP2-0734: unknown command beginning "WAQTD NO. ..." - rest of line ignored.
+SQL> SELECT COUNT(*),JOB
+  2  FROM EMP
+  3  GROUP BY JOB
+  4  HAVING COUNT(JOB)>=3;
+
+  COUNT(*) JOB                                                                                      
+---------- ---------                                                                                
+         4 CLERK                                                                                    
+         4 SALESMAN                                                                                 
+         3 MANAGER                                                                                  
+
+SQL> WAQTD NO. OF EMP GETTING AVG SAL BETWEEN 1500 AND 2500 IN EACH DEPT.
+SP2-0734: unknown command beginning "WAQTD NO. ..." - rest of line ignored.
+SQL> SELECT COUNT(*),DEPTNO
+  2  FROM EMP
+  3  GROUP BY DEPTNO
+  4  HAVING AVG(SAL) BETWEEN 1500 AND 2500;
+
+  COUNT(*)     DEPTNO                                                                               
+---------- ----------                                                                               
+         6         30                                                                               
+         5         20                                                                               
+
+SQL> WAQTD TOTAL SAL PRESENT N EACH DEPT EXCEPT DEPT NO 10.
+SP2-0734: unknown command beginning "WAQTD TOTA..." - rest of line ignored.
+SQL> SELECT
+  2  
+SQL> WAQTD MAX SAL AND MIN COMM GIVEN TO ALL THE SALESMAN IN EACH DEPT IF THEY ARE GETTING SAL MORE THAN 1250.
+SP2-0734: unknown command beginning "WAQTD MAX ..." - rest of line ignored.
+SQL> SELECT MAX(SAL),MIN(COMM)
+  2  FROM EMP
+  3  WHERE JOB='SALESMAN'
+  4  GROUP BY DEPTNO
+  5  HAVING
+  6  
+SQL> SELECT MAX(SAL),MIN(COMM),DEPTNO
+  2  FROM EMP
+  3  WHERE JOB='SALESMAN' AND SAL>1250
+  4  GROUP BY DEPTNO;
+
+  MAX(SAL)  MIN(COMM)     DEPTNO                                                                    
+---------- ---------- ----------                                                                    
+      1600          0         30                                                                    
+
+SQL> WAQTD NO. OF EMPS WORKING IN EACH JOB EXCEPT 'PRESIDENT' IN WHICH ATLEAST 3 EMPS ARE WORKING AND ATMOST 5 EMPS ARE WORKING.
+SP2-0734: unknown command beginning "WAQTD NO. ..." - rest of line ignored.
+SQL> SELECT COUNT(*),JOB
+  2  FROM EMP
+  3  WHERE JOB<>'PRESIDENT'
+  4  GROUP BY JOB
+  5  HAVING COUNT(*) BETWEEN 3 AND 5;
+
+  COUNT(*) JOB                                                                                      
+---------- ---------                                                                                
+         4 CLERK                                                                                    
+         4 SALESMAN                                                                                 
+         3 MANAGER                                                                                  
+
+SQL> SPOOL OFF;

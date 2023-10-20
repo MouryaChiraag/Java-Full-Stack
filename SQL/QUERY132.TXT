@@ -1,0 +1,17 @@
+SQL> SELECT *
+  2  FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+DEPT                           TABLE                                            
+EMP                            TABLE                                            
+BONUS                          TABLE                                            
+SALGRADE                       TABLE                                            
+PENTAGON                       TABLE                                            
+CUSTOMER                       TABLE                                            
+PRODUCT                        TABLE                                            
+FACULTY                        TABLE                                            
+
+8 rows selected.
+
+SQL> SPOOL OFF;

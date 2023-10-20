@@ -1,0 +1,262 @@
+SQL> SELECT *
+  2  FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+DEPT                           TABLE                                            
+EMP                            TABLE                                            
+BONUS                          TABLE                                            
+SALGRADE                       TABLE                                            
+PENTAGON                       TABLE                                            
+CUSTOMER                       TABLE                                            
+PRODUCT                        TABLE                                            
+
+7 rows selected.
+
+SQL> DESC CUSTOMER;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CID                                       NOT NULL NUMBER(3)
+ CNAME                                     NOT NULL VARCHAR2(20)
+ PHONE                                              NUMBER(10)
+
+SQL> RENAME CUSTOMER TO CUSTOM;
+
+Table renamed.
+
+SQL> DESC CUSTOMER;
+ERROR:
+ORA-04043: object CUSTOMER does not exist 
+
+
+SQL> DESC CUSTOM;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CID                                       NOT NULL NUMBER(3)
+ CNAME                                     NOT NULL VARCHAR2(20)
+ PHONE                                              NUMBER(10)
+
+SQL> RENAME CUSTOM TO CUSTOMER;
+
+Table renamed.
+
+SQL> DESC CUSTOMER;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CID                                       NOT NULL NUMBER(3)
+ CNAME                                     NOT NULL VARCHAR2(20)
+ PHONE                                              NUMBER(10)
+
+SQL> ALTER TABLE CUSTOMER
+  2  ADD PID NUMBER(2) NOT NULL;
+
+Table altered.
+
+SQL> DESC CUSTOMER;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CID                                       NOT NULL NUMBER(3)
+ CNAME                                     NOT NULL VARCHAR2(20)
+ PHONE                                              NUMBER(10)
+ PID                                       NOT NULL NUMBER(2)
+
+SQL> ABOVE ONE IS TO ADD A COLUMN USING ALTER.
+SP2-0734: unknown command beginning "ABOVE ONE ..." - rest of line ignored.
+SQL> ALTER TABLE CUSTOMER
+  2  DROP COLUMN PID;
+
+Table altered.
+
+SQL> DESC CUSTOMER;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CID                                       NOT NULL NUMBER(3)
+ CNAME                                     NOT NULL VARCHAR2(20)
+ PHONE                                              NUMBER(10)
+
+SQL> THE ABOVE ONE IS TO DROP A COL.
+SP2-0734: unknown command beginning "THE ABOVE ..." - rest of line ignored.
+SQL> ALTER TABLE CUSTOMER
+  2  ADD PID NUMBER(2) NOT NULL;
+
+Table altered.
+
+SQL> ALTER TABLE CUSTOMER
+  2  MODIFY PID CHAR(2);
+
+Table altered.
+
+SQL> DESC CUSTOMER;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CID                                       NOT NULL NUMBER(3)
+ CNAME                                     NOT NULL VARCHAR2(20)
+ PHONE                                              NUMBER(10)
+ PID                                       NOT NULL CHAR(2)
+
+SQL> ABOVE ONE IS FOR CHANGING THE DATATYPE.
+SP2-0734: unknown command beginning "ABOVE ONE ..." - rest of line ignored.
+SQL> ALTER TABLE CUSTOMER
+  2  MODIFY PID CHAR(2) NULL;
+
+Table altered.
+
+SQL> DESC CUSTOMER;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CID                                       NOT NULL NUMBER(3)
+ CNAME                                     NOT NULL VARCHAR2(20)
+ PHONE                                              NUMBER(10)
+ PID                                                CHAR(2)
+
+SQL> ALTER TABLE CUSTOMER
+  2  RENAME PID TO PPID;
+RENAME PID TO PPID
+       *
+ERROR at line 2:
+ORA-14155: missing PARTITION or SUBPARTITION keyword 
+
+
+SQL> ALTER TABLE CUSTOMER
+  2  RENAME COLUMN PID TO PPID;
+
+Table altered.
+
+SQL> DESC CUSTOMER;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CID                                       NOT NULL NUMBER(3)
+ CNAME                                     NOT NULL VARCHAR2(20)
+ PHONE                                              NUMBER(10)
+ PPID                                               CHAR(2)
+
+SQL> ABOVE ONE IS FOR RENAME THE COL.
+SP2-0734: unknown command beginning "ABOVE ONE ..." - rest of line ignored.
+SQL> DESC PRODUCT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PID                                       NOT NULL NUMBER(2)
+ PNAME                                     NOT NULL VARCHAR2(20)
+ PRICE                                     NOT NULL NUMBER(6,2)
+
+SQL> ALTER TABLE CUSTOMER
+  2  RENAME COLUMN PPID TO PID;
+
+Table altered.
+
+SQL> RENAME TABLE CUSTOMER
+  2  MODIFY PID NUMBER(2);
+RENAME TABLE CUSTOMER
+       *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> ALTER TABLE CUSTOMER
+  2   MODIFY PID NUMBER(2);
+
+Table altered.
+
+SQL> ALTER TABLE CUSTOMER
+  2  MODIFY PID NUMBER(2) NOT NULL;
+
+Table altered.
+
+SQL> DESC CUSTOMER;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CID                                       NOT NULL NUMBER(3)
+ CNAME                                     NOT NULL VARCHAR2(20)
+ PHONE                                              NUMBER(10)
+ PID                                       NOT NULL NUMBER(2)
+
+SQL> ALTER TABLE CUSTOMER
+  2  ADD CONSTRAINT Ch_Fk FOREIGN KEY(PID) REFERENCES PRODUCT(PID);
+
+Table altered.
+
+SQL> DESC CUSTOMER;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CID                                       NOT NULL NUMBER(3)
+ CNAME                                     NOT NULL VARCHAR2(20)
+ PHONE                                              NUMBER(10)
+ PID                                       NOT NULL NUMBER(2)
+
+SQL> CREATE TABLE FACULTY
+  2  (
+  3  FID NUMBER(2) NOT NULL,
+  4  FNAME VARCHAR(20) NOT NULL,
+  5  LOC VARCHAR(15) NOT NULL,
+  6  CONSTRAINT Fh_Pk PRIMARY KEY(FID)
+  7  );
+
+Table created.
+
+SQL> DESC FACULTY;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ FID                                       NOT NULL NUMBER(2)
+ FNAME                                     NOT NULL VARCHAR2(20)
+ LOC                                       NOT NULL VARCHAR2(15)
+
+SQL> ADD CONSTRAINT
+SP2-0734: unknown command beginning "ADD CONSTR..." - rest of line ignored.
+SQL> 
+SQL> ALTER TABLE CUSTOMER
+  2  ADD CONSTRAINT
+  3  
+SQL> CREATE STUDENT TABLE LIKE FACULTY AND ESTABLISH A CONNECTION BETWEEN STUDENT AND FACULTY.
+  2  
+SQL> CREATE TABLE STUDENT
+  2  (
+  3  SID  NUMBER(2) NOT NULL,
+  4  SNAME VARCHAR(20) NOT NULL,
+  5  LOC VARCHAR(15) NOT NULL,
+  6  CONSTRAINT Sh_Pk PRIMARY KEY(SID)
+  7  );
+
+Table created.
+
+SQL> DESC STUDENT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                       NOT NULL NUMBER(2)
+ SNAME                                     NOT NULL VARCHAR2(20)
+ LOC                                       NOT NULL VARCHAR2(15)
+
+SQL> ALTER TABLE STUDENT
+  2  ADD CONSTRAINT Ph_Fk FOREIGN KEY(FID) REFERENCES STUDENT(SID);
+ADD CONSTRAINT Ph_Fk FOREIGN KEY(FID) REFERENCES STUDENT(SID)
+                                 *
+ERROR at line 2:
+ORA-00904: "FID": invalid identifier 
+
+
+SQL> ALTER TABLE STUDENT
+  2  ADD CONSTRAINT Fh_PK FOREIGN KEY(FID) REFERENCES STUDENT(SID);
+ADD CONSTRAINT Fh_PK FOREIGN KEY(FID) REFERENCES STUDENT(SID)
+                                 *
+ERROR at line 2:
+ORA-00904: "FID": invalid identifier 
+
+
+SQL> ALTER TABLE STUDENT
+  2  ADD CONSTRAINT Ph_Fk FOREIGN KEY(FID) REFERENCES FACULTY(FID);
+ADD CONSTRAINT Ph_Fk FOREIGN KEY(FID) REFERENCES FACULTY(FID)
+                                 *
+ERROR at line 2:
+ORA-00904: "FID": invalid identifier 
+
+
+SQL> NOT GETTING THIS.
+SP2-0734: unknown command beginning "NOT GETTIN..." - rest of line ignored.
+SQL> ALTER TABLE FACULTY
+  2  ADD CONSTRAINT Sh_Fk FOREIGN KEY(SID) REFERENCES STUDENT(SID);
+ADD CONSTRAINT Sh_Fk FOREIGN KEY(SID) REFERENCES STUDENT(SID)
+                                 *
+ERROR at line 2:
+ORA-00904: "SID": invalid identifier 
+
+
+SQL> SPOOL OFF;

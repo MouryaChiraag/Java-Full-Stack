@@ -1,0 +1,256 @@
+SQL> WAQTD THE DEPT NAME OF BLAKE.
+SP2-0734: unknown command beginning "WAQTD THE ..." - rest of line ignored.
+SQL> SELECT DNAME
+  2  FROM DEPT
+  3  WHERE DNO=(SELECT DNO
+  4  FROM EMP
+  5  WHERE
+  6  
+SQL> SELECT DNAME
+  2  FROM DEPT
+  3  WHERE DEPTNO=(SELECT DEPTNO
+  4  FROM EMP
+  5  WHERE ENAME='BLAKE');
+
+DNAME                                                                                               
+--------------                                                                                      
+SALES                                                                                               
+
+SQL> WAQTD THE LOCATION OF KING.
+SP2-0734: unknown command beginning "WAQTD THE ..." - rest of line ignored.
+SQL> SELECT LOC
+  2  FROM DEPT
+  3  WHERE DEPTNO=(SELECT DEPTNO
+  4  FROM EMP
+  5  WHERE ENAME='KING');
+
+LOC                                                                                                 
+-------------                                                                                       
+NEW YORK                                                                                            
+
+SQL> WAQTD THE NUMBER OF EMP WHO WORK IN CHICAGO.
+SP2-0734: unknown command beginning "WAQTD THE ..." - rest of line ignored.
+SQL> SELECT COUNT(*)
+  2  FROM EMP
+  3  WHERE DEPTNO=(SELECT DEPTNO
+  4  FROM DEPT
+  5  WHERE LOC='CHICAGO'0;
+WHERE DEPTNO=(SELECT DEPTNO
+              *
+ERROR at line 3:
+ORA-00921: unexpected end of SQL command 
+
+
+SQL> SELECT COUNT(*)
+  2  FROM EMP
+  3  WHERE DEPTNO=(SELE
+  4  FROM DEPT
+  5  WHERE LOC='CHICAGO');
+FROM DEPT
+*
+ERROR at line 4:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SELECT COUN
+  2  FROM EMP
+  3  WHERE DEPTN
+  4  FROM DEPT
+  5  WHERE LOC='
+  6  
+SQL> SELECT COUNT(*)
+  2  FROM EMP
+  3  WHERE DEPTNO=(SELECT DEPTNO
+  4  FROM DEPT
+  5  WHERE LOC='CHICAGO');
+
+  COUNT(*)                                                                                          
+----------                                                                                          
+         6                                                                                          
+
+SQL> SELECT COUNT(*)
+  2  FROM EMP
+  3  WHERE DEPTNO=(SELECT DEPTNO
+  4  FROM DEPT
+  5  WHERE JOB='ACCOUNTANT';
+WHERE DEPTNO=(SELECT DEPTNO
+              *
+ERROR at line 3:
+ORA-00921: unexpected end of SQL command 
+
+
+SQL> WAQTD DETAILS OF EMP WHO ARE WORKING IN ACCOUNTING DEPT.
+SP2-0734: unknown command beginning "WAQTD DETA..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE DEPTNO=(SELECT DEPTNO
+  4  FROM DEPT
+  5  WHERE DNAME='ACCOUNTING');
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10               
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10               
+
+SQL> WAQTD DETAILS OF EMP WORKING IN RESEARCH OR ACCOUNTING DEPY.-->ASSIGN.
+SP2-0734: unknown command beginning "WAQTD DETA..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE DEPTNO=(SELECT DEPTNO
+  4  FROM EMP
+  5  WHERE DNAME IN ('ACCOUNTING','RESEARCH');
+WHERE DEPTNO=(SELECT DEPTNO
+              *
+ERROR at line 3:
+ORA-00921: unexpected end of SQL command 
+
+
+SQL> THE ERROR IS BECAUSE DEPTNO CANNOT ACCEPT 2 VALUES AT ONCE.SO, THE QUWRIES WE CAME ACCROSS TILL NOW IS CALLED SINGLE-ROW SUB-QUERIES..
+SP2-0734: unknown command beginning "THE ERROR ..." - rest of line ignored.
+SQL> TYPES OF SUBQUERIES IS NEXT TOPIC.
+SP2-0734: unknown command beginning "TYPES OF S..." - rest of line ignored.
+SQL> WE USE TO HANDLE SINGLE RECORDS IN SUBQUERIES TILL NOW.
+SP2-0734: unknown command beginning "WE USE TO ..." - rest of line ignored.
+SQL> SELE CT *
+SP2-0042: unknown command "SELE CT *" - rest of line ignored.
+SP2-0044: For a list of known commands enter HELP
+and to leave enter EXIT.
+SQL> FROM EMP
+SP2-0042: unknown command "FROM EMP" - rest of line ignored.
+SQL> WHERE DEPTNO IN(SELECT DEPTNO
+SP2-0734: unknown command beginning "WHERE DEPT..." - rest of line ignored.
+SQL> 
+SQL> 
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE DEPTNO IN(SELECT DEPTNO
+  4  FROM EMP
+  5  WHERE DNAME IN('RESEARCH','ACCOUNTING');
+WHERE DNAME IN('RESEARCH','ACCOUNTING')
+                                      *
+ERROR at line 5:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE DEPTNO IN(SELECT DEPTNO
+  4  FROM EMP
+  5  WHERE DNAME IN('RESEARCH','ACCOUNTING'));
+WHERE DNAME IN('RESEARCH','ACCOUNTING'))
+      *
+ERROR at line 5:
+ORA-00904: "DNAME": invalid identifier 
+
+
+SQL>  SELECT *
+  2   FROM EMP
+  3   WHERE DEPTNO IN(SELECT DEPTNO
+  4  FROM DEPT
+  5   WHERE DNAME IN('RESEARCH','ACCOUNTING'));
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20               
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10               
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10               
+
+8 rows selected.
+
+SQL> WAQTD EMP NAME AND JOB IF THE EMP WORKING IN SALES DEPT AND GETTING SAL MORE THAN SMITH.
+SP2-0734: unknown command beginning "WAQTD EMP ..." - rest of line ignored.
+SQL> SELECT ENAME,JOB
+  2  FROM EMP
+  3  WHERE DEPTNO IN(SELECT DEPTNO
+  4  FROM DEPT
+  5  WHERE DNAME='SALES') AND SAL>(SELECT SAL
+  6  FROM EMP
+  7  WHERE ENAME='SMITH');
+
+ENAME      JOB                                                                                      
+---------- ---------                                                                                
+ALLEN      SALESMAN                                                                                 
+WARD       SALESMAN                                                                                 
+MARTIN     SALESMAN                                                                                 
+BLAKE      MANAGER                                                                                  
+TURNER     SALESMAN                                                                                 
+JAMES      CLERK                                                                                    
+
+6 rows selected.
+
+SQL> SELECT SAL,ENAME
+  2  FROM EMP
+  3  WHERE ENAME='SMITH';
+
+       SAL ENAME                                                                                    
+---------- ----------                                                                               
+       800 SMITH                                                                                    
+
+SQL> JUST TRIED THIS ABOVE QUERY.
+SP2-0734: unknown command beginning "JUST TRIED..." - rest of line ignored.
+SQL> JUST TRYING THE BELOW ONE TOO.
+SP2-0734: unknown command beginning "JUST TRYIN..." - rest of line ignored.
+SQL> SELECT DNAME
+  2  FROM EMP
+  3  WHERE DEPTNO IN(SELECT DEPTNO
+  4  FROM DEPT
+  5  WHERE HI
+  6  
+SQL> SELECT DNAME
+  2  FROM EMP
+  3  WHERE HIREDATE IN (SELECT HIREDATE
+  4  FROM EMP
+  5  WHERE ENAME>'SMITH');
+SELECT DNAME
+       *
+ERROR at line 1:
+ORA-00904: "DNAME": invalid identifier 
+
+
+SQL> SELECT DNAME
+  2  FROM DEPT
+  3   WHERE HIREDATE IN (SELECT HIREDATE
+  4   FROM EMP
+  5   WHERE ENAME>'SMITH');
+ WHERE HIREDATE IN (SELECT HIREDATE
+       *
+ERROR at line 3:
+ORA-00904: "HIREDATE": invalid identifier 
+
+
+SQL> WAQTD DETAILS OF EMP WHO WERE GETTING SAL MORE THAN BLAKE SAL.
+SP2-0734: unknown command beginning "WAQTD DETA..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE SAL>(SELECT SAL
+  4  FROM EMP
+  5  WHERE ENAME='BLAKE');
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20               
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+
+SQL> WAQTD DETAILS OF EMP WHO ARE GETTING SAL MORE THAN ANY OF THE SALESMAN.
+SP2-0734: unknown command beginning "WAQTD DETA..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE SAL>(SELECT SAL
+  4  FROM EMP
+  5  WHERE
+  6  
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE SAL IN (SELECT SAL
+  4  
+SQL> SO HERE COMES ALL OPERATOR..
+SP2-0734: unknown command beginning "SO HERE CO..." - rest of line ignored.
+SQL> SPOOL OFF;

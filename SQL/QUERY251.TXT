@@ -1,0 +1,376 @@
+SQL> SELECT *
+  2  FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7369 SMITH      CLERK           7902 17-DEC-80        800                 
+        20                                                                      
+                                                                                
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300      
+        30                                                                      
+                                                                                
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500      
+        30                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7566 JONES      MANAGER         7839 02-APR-81       2975                 
+        20                                                                      
+                                                                                
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400      
+        30                                                                      
+                                                                                
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                 
+        30                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                 
+        10                                                                      
+                                                                                
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                 
+        20                                                                      
+                                                                                
+      7839 KING       PRESIDENT            17-NOV-81       5000                 
+        10                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0      
+        30                                                                      
+                                                                                
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                 
+        20                                                                      
+                                                                                
+      7900 JAMES      CLERK           7698 03-DEC-81        950                 
+        30                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                 
+        20                                                                      
+                                                                                
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                 
+        10                                                                      
+                                                                                
+
+14 rows selected.
+
+SQL> WAQTD THE ENAME, SAL, ADDED WITH THE COMMISSION FROM EMP TABLE.
+SP2-0734: unknown command beginning "WAQTD THE ..." - rest of line ignored.
+SQL> SELECT ENAME,SAL+NVL(COMM+0)
+  2  FROM EMP;
+SELECT ENAME,SAL+NVL(COMM+0)
+                 *
+ERROR at line 1:
+ORA-00909: invalid number of arguments 
+
+
+SQL> SELECT ENAME,SAL+NVL(COMM,0)
+  2  FROM EMP;
+
+ENAME      SAL+NVL(COMM,0)                                                      
+---------- ---------------                                                      
+SMITH                  800                                                      
+ALLEN                 1900                                                      
+WARD                  1750                                                      
+JONES                 2975                                                      
+MARTIN                2650                                                      
+BLAKE                 2850                                                      
+CLARK                 2450                                                      
+SCOTT                 3000                                                      
+KING                  5000                                                      
+TURNER                1500                                                      
+ADAMS                 1100                                                      
+
+ENAME      SAL+NVL(COMM,0)                                                      
+---------- ---------------                                                      
+JAMES                  950                                                      
+FORD                  3000                                                      
+MILLER                1300                                                      
+
+14 rows selected.
+
+SQL> SET PAGES 100
+SQL> SET LINES 100
+SQL> WAQTD ENAME, SAL ADDED WITH THE COMM, IF THE PERSON NOT GETTING ANY COMM, TYHEN PRINT N/A IN THE PLACE OF NULL.
+SP2-0734: unknown command beginning "WAQTD ENAM..." - rest of line ignored.
+SQL> SELECT ENAME,SAL,COMM+NVL(COMM,N/A)
+  2  FROM EMP;
+SELECT ENAME,SAL,COMM+NVL(COMM,N/A)
+                                 *
+ERROR at line 1:
+ORA-00904: "A": invalid identifier 
+
+
+SQL> SELECT ENAME,SAL+NVL(COMM,NA)
+  2  FROM EMP;
+SELECT ENAME,SAL+NVL(COMM,NA)
+                          *
+ERROR at line 1:
+ORA-00904: "NA": invalid identifier 
+
+
+SQL> ANSWER NOT SHOWING . WILL CHECK IT LATER.>>>>>>>>>>><<<<<<<<<<<<<<
+SP2-0734: unknown command beginning "ANSWER NOT..." - rest of line ignored.
+SQL> WAQTD THE HIREDATE OF EMP IN US FORMAT
+SP2-0734: unknown command beginning "WAQTD THE ..." - rest of line ignored.
+SQL> SELECT ENAME,TO_CHAR(HIREDATE,'MM-DD-YY')
+  2  FROM EMP;
+
+ENAME      TO_CHAR(                                                                                 
+---------- --------                                                                                 
+SMITH      12-17-80                                                                                 
+ALLEN      02-20-81                                                                                 
+WARD       02-22-81                                                                                 
+JONES      04-02-81                                                                                 
+MARTIN     09-28-81                                                                                 
+BLAKE      05-01-81                                                                                 
+CLARK      06-09-81                                                                                 
+SCOTT      04-19-87                                                                                 
+KING       11-17-81                                                                                 
+TURNER     09-08-81                                                                                 
+ADAMS      05-23-87                                                                                 
+JAMES      12-03-81                                                                                 
+FORD       12-03-81                                                                                 
+MILLER     01-23-82                                                                                 
+
+14 rows selected.
+
+SQL> SELECT EMP.*,TO_CHAR(HIREDATE,'MM-DD-YY')
+  2  FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO TO_CHAR(      
+---------- ---------- --------- ---------- --------- ---------- ---------- ---------- --------      
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20 12-17-80      
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30 02-20-81      
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30 02-22-81      
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20 04-02-81      
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30 09-28-81      
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30 05-01-81      
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10 06-09-81      
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20 04-19-87      
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10 11-17-81      
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30 09-08-81      
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20 05-23-87      
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30 12-03-81      
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20 12-03-81      
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10 01-23-82      
+
+14 rows selected.
+
+SQL> SELECT EMP.*,TO_CHAR(HIREDATE,'MM-DD-YY') AS US_FORMAT
+  2  FROM EMP;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO US_FORMA      
+---------- ---------- --------- ---------- --------- ---------- ---------- ---------- --------      
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20 12-17-80      
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30 02-20-81      
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30 02-22-81      
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20 04-02-81      
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30 09-28-81      
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30 05-01-81      
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10 06-09-81      
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20 04-19-87      
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10 11-17-81      
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30 09-08-81      
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20 05-23-87      
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30 12-03-81      
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20 12-03-81      
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10 01-23-82      
+
+14 rows selected.
+
+SQL> CORRECT QUERY IS WAQTD DETAILS OF EMP WHERE HIREDAYTE SHOULD BE IN US FIORMAT.
+SP2-0734: unknown command beginning "CORRECT QU..." - rest of line ignored.
+SQL> WAQTD DETAILS OF EMP IF EMP HIRED DURING NOV AND DEC IN THE YEAR 81.
+SP2-0734: unknown command beginning "WAQTD DETA..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE TO_CHAR(HIREDATE,'MM') IN (11,12) AND
+  4  TO_CHAR(HIREDATE,'YY')=81;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10               
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+
+SQL> WAQTD THE DETAILS FROM THE EMP TABLE IF THE EMP HIRED IN LEAP YEAR.
+SP2-0734: unknown command beginning "WAQTD THE ..." - rest of line ignored.
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE TO_CHAR(HIREDATE,'MM') IN (2) AND
+  4  TO_CHAR(HIREDATE,'DD') IN (29);
+
+no rows selected
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE MOD(TO_CHAR(HIREDATE,'YY'),4)=0;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20               
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE MOD(TO_CHAR(HIREDATE,'YYYY'),400)=0;
+
+no rows selected
+
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE MOD(TO_CHAR(HIREDATE,'YYYY'),400)=
+  4  
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE MOD(TO_CHAR(HIREDATE,'YYYY'),400
+  4  
+SQL> SELECT *
+  2  from emp
+  3  
+SQL> SELECT *
+  2  FROM EMP
+  3  WHERE MOD(TO_CHAR(HIREDATE,'YYYY'),400)=0 AND
+  4  MOD(TO_CHAR(HIREDATE,'YYYY'),100)!=0;
+
+no rows selected
+
+SQL> WAQTD THE MAX SAL GIVEN TO ALL THE EMP.
+SP2-0734: unknown command beginning "WAQTD THE ..." - rest of line ignored.
+SQL> SELECT MAX(SAL)
+  2  FROM EMP;
+
+  MAX(SAL)                                                                                          
+----------                                                                                          
+      5000                                                                                          
+
+SQL> WAQTD THE MAX SAL GIVEN TO ALL THE EMP IN EACH DEPT.
+SP2-0734: unknown command beginning "WAQTD THE ..." - rest of line ignored.
+SQL> HERE COMES GROUP BY CLAUSE.
+SP2-0734: unknown command beginning "HERE COMES..." - rest of line ignored.
+SQL> SELECT MAX(SAL)
+  2  FROM EMP
+  3  GROUP BY DEPTNO;
+
+  MAX(SAL)                                                                                          
+----------                                                                                          
+      2850                                                                                          
+      3000                                                                                          
+      5000                                                                                          
+
+SQL> 
+SQL> 
+SQL> GROUP BY CLAUSE
+SP2-0734: unknown command beginning "GROUP BY C..." - rest of line ignored.
+SQL> 
+SQL> WAQTD THE MAX SAL GIVEN TO ALL THE EMP IN EACH DEPT.
+SP2-0734: unknown command beginning "WAQTD THE ..." - rest of line ignored.
+SQL> SELECT MAX(SAL),DEPTNO
+  2  FROM EMP
+  3  GROUP BY DEPTNO;
+
+  MAX(SAL)     DEPTNO                                                                               
+---------- ----------                                                                               
+      2850         30                                                                               
+      3000         20                                                                               
+      5000         10                                                                               
+
+SQL> WAQTD THE MIN SAL GIVEN TO ALL THE EMP IN EACH DEPT.
+SP2-0734: unknown command beginning "WAQTD THE ..." - rest of line ignored.
+SQL> SELECT MIN(SAL),DEPTNO
+  2  FROM EMP
+  3  GROUP BY DEPTNO;
+
+  MIN(SAL)     DEPTNO                                                                               
+---------- ----------                                                                               
+       950         30                                                                               
+       800         20                                                                               
+      1300         10                                                                               
+
+SQL> WAQTD TOTAL SAL GIVEN TO ALL THE EMPLLOYEES IN EACH JOB.
+SP2-0734: unknown command beginning "WAQTD TOTA..." - rest of line ignored.
+SQL> SELECT SUM(SAL),JOB
+  2  FROM EMP
+  3  GROUP BY JOB;
+
+  SUM(SAL) JOB                                                                                      
+---------- ---------                                                                                
+      4150 CLERK                                                                                    
+      5600 SALESMAN                                                                                 
+      5000 PRESIDENT                                                                                
+      8275 MANAGER                                                                                  
+      6000 ANALYST                                                                                  
+
+SQL> WAQTD THE NUMBER OF EMPLOYEES WORKING AS MANAGERS IN EACH DEPT.
+SP2-0734: unknown command beginning "WAQTD THE ..." - rest of line ignored.
+SQL> SELECT COUNT(*),DEPTNO
+  2  FROM EMP
+  3  WHERE JOB='MANAGER'
+  4  GROUP BY DEPTNO;
+
+  COUNT(*)     DEPTNO                                                                               
+---------- ----------                                                                               
+         1         30                                                                               
+         1         20                                                                               
+         1         10                                                                               
+
+SQL> THIS WAS THE QUERY WHERE CLAUSE CAME INTO ROLE WITHIN GROUP BY.
+SP2-0734: unknown command beginning "THIS WAS T..." - rest of line ignored.
+SQL> WAQTD MAX SAL AND AVG SAL GIVEN TO ALL EMP IN EACH DEPT.
+SP2-0734: unknown command beginning "WAQTD MAX ..." - rest of line ignored.
+SQL> SELECT MAX(SAL) AND AVG(SAL)
+  2  FROM EMP
+  3  GROUP BY DEPT;
+SELECT MAX(SAL) AND AVG(SAL)
+                *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT MAX(SAL),AVG(SAL),DEPTNO
+  2  FROM EMP
+  3  GROUP  BY DEPTNO;
+
+  MAX(SAL)   AVG(SAL)     DEPTNO                                                                    
+---------- ---------- ----------                                                                    
+      2850 1566.66667         30                                                                    
+      3000       2175         20                                                                    
+      5000 2916.66667         10                                                                    
+
+SQL> WAQTD NO. OF EMP GETTING SAL MORE THAN 1250 IN EACH DEPT.
+SP2-0734: unknown command beginning "WAQTD NO. ..." - rest of line ignored.
+SQL> SELECT COUNT(*)
+  2  FROM EMP
+  3  WHERE SAL>1250
+  4  GROUP BY DEPTNO;
+
+  COUNT(*)                                                                                          
+----------                                                                                          
+         3                                                                                          
+         3                                                                                          
+         3                                                                                          
+
+SQL> WAQTD NO. OF EMP GETTING SAL MORE THAN 1250 AND MAX SAL LESS THAN 4200 IN ECAH DEPT.
+SP2-0734: unknown command beginning "WAQTD NO. ..." - rest of line ignored.
+SQL> SELECT COUNT(*),DEPTNO
+  2  FROM EMP
+  3  WHERE
+  4  NEXT SESSION
+  5  
+SQL> SPOOL OFF;
